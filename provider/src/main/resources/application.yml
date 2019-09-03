@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: provider
+
+server:
+  port: 8763
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:8760/eureka/,http://eureka2:8761/eureka/,http://eureka3:8762/eureka/
+#    register-with-eureka: false

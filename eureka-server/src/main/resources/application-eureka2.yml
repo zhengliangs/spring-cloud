@@ -18,3 +18,5 @@ eureka:
     disable-delta: false
   instance:
     hostname: eureka2
+  server:
+    enable-self-preservation: true
