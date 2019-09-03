@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient("provider")
-@Service(value = "userFeign")
+@FeignClient(value = "provider")
+//@Service(value = "userFeign")
 public interface UserFeign {
 
-    @GetMapping("/getName")
+    @GetMapping("/userController/getName")
     String getName(@RequestParam Integer id);
 
 }
