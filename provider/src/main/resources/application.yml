@@ -4,9 +4,17 @@ spring:
 
 server:
   port: 8763
+  #工程名称
+#  servlet:
+#    context-path: /provider
 
 eureka:
   client:
     service-url:
       defaultZone: http://eureka1:8760/eureka/,http://eureka2:8761/eureka/,http://eureka3:8762/eureka/
 #    register-with-eureka: false
+
+test:
+  name: "lisi"
+  path: "www.baidu.com"
+  index: 5
