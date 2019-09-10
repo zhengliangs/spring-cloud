@@ -16,6 +16,7 @@ public interface UserFeign {
 
     /**
      * feign的负载均衡测试
+     * 路由需要和服务提供者路由相同
      * @return
      */
     @GetMapping("/userController/getFeign")
