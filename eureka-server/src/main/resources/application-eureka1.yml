@@ -15,8 +15,17 @@ eureka:
     #默认为true，会从注册中心获取注册信息缓存到本地，以后只会增量获取，可以搭配disable-delta : false来强制每次全部获取
     fetch-registry: true
     #默认开启增量获取更新注册表信息，false则每次会全部获取
-    disable-delta: false
+#    disable-delta: true
   instance:
     hostname: eureka1
   server:
+    #关闭自我保护机制，缺省为打开（将失效的服务实例保护起来，不予剔除）
     enable-self-preservation: false
+    #失效剔除时间，单位：秒（缺省60*1000），服务失效后1秒就剔除
+    eviction-interval-timer-in-ms: 1000
+
+#日志配置
+logging:
+  config: classpath:logback-boot.xml
+  level:
+    com.zfw.eurekaserver.Listener: debug

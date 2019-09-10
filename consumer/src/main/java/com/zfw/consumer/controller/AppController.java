@@ -18,4 +18,13 @@ public class AppController {
     public String getName(@RequestParam(value = "id") Integer id){
         return userFeign.getName(id);
     }
+
+    /**
+     * feign的负载均衡测试
+     * @return
+     */
+    @GetMapping(value = "/getFeign")
+    public String getFeign(){
+        return userFeign.getFeign();
+    }
 }

@@ -3,7 +3,7 @@ spring:
     name: provider
 
 server:
-  port: 8763
+  port: 8764
   #工程名称
 #  servlet:
 #    context-path: /provider

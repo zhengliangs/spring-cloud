@@ -23,7 +23,7 @@ public class UserController {
         return userService.getUserInfo();
     }
 
-    @GetMapping(value = "getName")
+    @GetMapping(value = "/getName")
     public String getName(Integer id){
         return "张三";
     }
@@ -32,4 +32,14 @@ public class UserController {
     public PropertiesEntity get() {
         return propertiesEntity;
     }
+
+    /**
+     * 负载均衡测试
+     * @return
+     */
+    @GetMapping(value = "/getFeign")
+    public String getFeign(){
+        return "hi feign, from port 8764";
+    }
+
 }
