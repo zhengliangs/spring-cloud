@@ -15,26 +15,34 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @Autowired
-    private PropertiesEntity propertiesEntity;
 
     @GetMapping(value = "/getUserInfo")
     public UserEntity getUserInfo(){
         return userService.getUserInfo();
     }
 
+    /**
+     * 声明式feign调用测试
+     * @param id
+     * @return
+     */
     @GetMapping(value = "/getName")
     public String getName(Integer id){
-        return "张三";
+        return "张三"+id;
     }
 
+    /**
+     * 注入配置文件测试
+     * @return
+     */
     @GetMapping(value = "/get")
     public PropertiesEntity get() {
-        return propertiesEntity;
+        return userService.getPropertiesEntity();
     }
 
     /**
      * 负载均衡测试
+     * 分别使用application和application-dev来启动两个不同的port,返回不同的端口号（8763和8764）
      * @return
      */
     @GetMapping(value = "/getFeign")
