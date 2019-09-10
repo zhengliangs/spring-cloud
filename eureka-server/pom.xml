@@ -20,6 +20,15 @@
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
+        <!--已经废弃，不推荐使用-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-eureka-server -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-eureka-server</artifactId>-->
+            <!--<version>1.4.7.RELEASE</version>-->
+        <!--</dependency>-->
+
+
     </dependencies>
 
     <build>

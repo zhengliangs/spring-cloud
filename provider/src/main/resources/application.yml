@@ -2,6 +2,12 @@ spring:
   application:
     name: provider
 
+  #jackson
+  jackson:
+    #为null的属性不参加序列化
+    default-property-inclusion: non_null
+    #日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
 server:
   port: 8763
   #工程名称
