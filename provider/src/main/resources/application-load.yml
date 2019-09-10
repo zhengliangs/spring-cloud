@@ -18,9 +18,3 @@ eureka:
     lease-expiration-duration-in-seconds: 10
     #服务续约时间单位：秒，默认30秒
     lease-renewal-interval-in-seconds: 5
-
-
-test:
-  name: "lisi"
-  path: "www.baidu.com"
-  index: 5
