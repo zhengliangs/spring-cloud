@@ -30,6 +30,7 @@ public class ProviderFallback implements FallbackFactory<ProviderService> {
 
             @Override
             public String verifyHystrix() {
+                log.info("进入服务熔断");
                 return "this is hystrix verifyHystrix";
             }
         };

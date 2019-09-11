@@ -24,9 +24,9 @@ provider:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
 # 以下配置未测试
     #请求连接超时时间 单位ms
-    ConnectTimeout: 5000
+    ConnectTimeout: 500
     #请求处理的超时时间 单位ms
-    ReadTimeout: 5000
+    ReadTimeout: 2000
     #对所有请求都进行重试
     OkToRetryOnAllOperations: true
     #切换实例的重试次数
@@ -34,6 +34,6 @@ provider:
     #对当前实例的重试次数
     MaxAutoRetries: 1
 
-fegin:
+feign:
   hystrix:
     enabled: true

@@ -20,14 +20,14 @@ public interface ProviderService {
      * 路由需要和服务提供者路由相同
      * @return
      */
-    @GetMapping("/appController/getRibbon")
+    @GetMapping("/helloController/getRibbon")
     String getRibbon();
 
     /**
      * 服务熔断/降级
      * @return
      */
-    @GetMapping(value = "/appController/verifyHystrix")
+    @GetMapping(value = "/helloController/verifyHystrix")
     String verifyHystrix();
 
 

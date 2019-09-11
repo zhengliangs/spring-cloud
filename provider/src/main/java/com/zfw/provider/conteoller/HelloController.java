@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author hero良
- * @className AppController
+ * @className HelloController
  * @description TODO
  * @date 2019/9/10
  */
 @RestController
-@RequestMapping("/appController")
+@RequestMapping("/helloController")
 @Slf4j
-public class AppController {
+public class HelloController {
 
     @Autowired
     private JacksonService jacksonService;
