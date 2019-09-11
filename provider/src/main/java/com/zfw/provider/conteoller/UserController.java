@@ -40,14 +40,4 @@ public class UserController {
         return userService.getPropertiesEntity();
     }
 
-    /**
-     * 负载均衡测试
-     * 分别使用application和application-dev来启动两个不同的port,返回不同的端口号（8763和8764）
-     * @return
-     */
-    @GetMapping(value = "/getFeign")
-    public String getFeign(){
-        return "hi feign, from port 8764";
-    }
-
 }

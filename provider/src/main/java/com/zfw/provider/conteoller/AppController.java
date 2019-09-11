@@ -26,4 +26,19 @@ public class AppController {
     public JacksonEntity getJacksonInfo(){
         return jacksonService.getJacksonInfo();
     }
+
+    /**
+     * 负载均衡测试
+     * 分别使用application和application-dev来启动两个不同的port,返回不同的端口号（8763和8764）
+     * @return
+     */
+    @GetMapping(value = "/getRibbon")
+    public String getRibbon(){
+        return "hi ribbon, from port 8764";
+    }
+
+    @GetMapping(value = "/verifyHystrix")
+    public String verifyHystrix(){
+        return "verifyHystrix";
+    }
 }
