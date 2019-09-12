@@ -39,6 +39,12 @@ public class HelloController {
 
     @GetMapping(value = "/verifyHystrix")
     public String verifyHystrix(){
-        return "verifyHystrix";
+        log.info("******接收到请求******");
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "hello verifyHystrix";
     }
 }
