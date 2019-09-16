@@ -1,6 +1,11 @@
 spring:
   application:
     name: consumer
+  #RestTemplate+Ribbon重试配置
+#  cloud:
+#    loadbalancer:
+#      retry:
+#        enabled: true
 
 server:
   port: 8765
@@ -12,57 +17,77 @@ eureka:
     #作为服务消费者，不提供服务，不应该注册自己
     register-with-eureka: false
 
+#ribbon重试计算公式：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries *MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
+
+#-------------------RestTemplate+Ribbon重试配置-------------------
+ribbon:
+  # 同一实例最大重试次数，不包括首次调用
+  MaxAutoRetries: 1
+  # 重试其他实例的最大重试次数，不包括首次所选的server
+  MaxAutoRetriesNextServer: 1
+  # 是否所有操作都进行重试
+  #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
+  #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
+  OkToRetryOnAllOperations: false
+
+#-------------------RestTemplate+Ribbon重试配置-------------------end
+
+#-----------------负载均衡配置      Feign+Ribbon------------------
 
 
 #负载均衡策略配置 ribbon（默认轮询）
-#provider 为注册中心application 不指定则全局生效，
 #测试重试：配置相应超时时间后，在服务提供者处，sleep大于响应超时时间，并打印请求时间，每次请求的间隔时间正好是超时时间
-provider:
-  ribbon:
-    #项目中使用eureka时
+#provider 为注册中心application（只对provider服务生效）不指定则全局生效（所有请求），
+#provider:
+#  ribbon:
+    #项目中没有使用eureka时，
 #    listOfServers: 127.0.0.1:8764,127.0.0.1:8763
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
     #请求连接超时时间 单位ms
-    ConnectTimeout: 500
+#    ConnectTimeout: 500
     #请求处理的超时时间 单位ms
-    ReadTimeout: 2000
+#    ReadTimeout: 1000
     #对所有请求都进行重试 默认false，设定为false的话，只有get请求会重试
-    OkToRetryOnAllOperations: true
+#    OkToRetryOnAllOperations: false
     #以下配置会重试4次 请求+1 MaxAutoRetries +1 切换实例+1 MaxAutoRetries +1 4次
     #切换实例的重试次数
-    MaxAutoRetriesNextServer: 1
+#    MaxAutoRetriesNextServer: 1
     #最大重试次数，当eureka中可以找到服务，但服务连不上的时候将会重试
-    MaxAutoRetries: 1
+#    MaxAutoRetries: 1
+
+#-----------------负载均衡配置     end    ------------------
 
 #开启hystrix
-feign:
-  hystrix:
-    enabled: true
+#feign:
+#  hystrix:
+#    enabled: true
 
-#配置hystrix超时  hystrix超时需要 > 重试超时时间(MaxAutoRetries + MaxAutoRetries) * (MaxAutoRetriesNextServer + MaxAutoRetriesNextServer) 总时间
-#否则重试没有意义
-hystrix:
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
+#配置hystrix超时  hystrix超时需要 > 重试超时时间(MaxAutoRetries + MaxAutoRetries) * (MaxAutoRetriesNextServer + MaxAutoRetriesNextServer) 总时间，否则重试没有意义
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: true
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 5000
 
-#禁用从注册中心获取服务提供者信息，则需要自己维护一套服务提供者的信息
+#----------------禁用从注册中心获取服务提供者信息，则需要自己维护一套服务提供者的信息--------------
+
 #ribbon:
 #  eureka:
 #    enabled: false
-#项目中没有使用eureka时
-#stores:
-#  ribbon:
-#    listOfServers: 127.0.0.1:8674,127.0.0.1:8675
+#禁用之后
+#如果项目中使用eureka,则在ribbon.listOfServers配置一套服务列表
+#为使用eureka,则通过stores.ribbon.listOfServers配置一套服务列表
+
+#----------------end--------------
+
 
 #日志配置
 logging:

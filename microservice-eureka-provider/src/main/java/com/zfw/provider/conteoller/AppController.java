@@ -13,10 +13,41 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/helloController")
-public class HelloController {
+@RequestMapping("/appController")
+public class AppController {
 
-   /**
+    /**
+     * @describe 测试RestTemplate+Ribbon负载均衡
+     * @author: hero良
+     * @param
+     * @date: 2019/9/16 16:25
+     * @return:
+     */
+    @GetMapping("/getTemplateRibbon")
+    public String getTemplate(String name){
+        log.debug("************接受到请求*************");
+        return "this is 8763， hello " + name;
+    }
+
+    /**
+     * @describe 测试RestTemplate熔断
+     * @author: hero良
+     * @param
+     * @date: 2019/9/16 16:26
+     * @return: 
+     */
+    @GetMapping("/getTemplateTimeout")
+    public String getTemplateTimeout(String name){
+        log.debug("************接受到请求*************");
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "hello " + name;
+    }
+
+    /**
     * @description 负载均衡测试
     * 使用application来启动两个不同的port,返回不同的端口号（8763和8764）
     * @author hero良
@@ -27,7 +58,7 @@ public class HelloController {
     @GetMapping(value = "/getRibbon")
     public String getRibbon(){
         log.debug("请求进入");
-        return "hi ribbon, from port 8764";
+        return "hi ribbon, from port 8763";
     }
 
     @GetMapping(value = "/verifyHystrix")

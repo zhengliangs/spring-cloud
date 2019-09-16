@@ -1,6 +1,6 @@
 package com.zfw.consumer.controller;
 
-import com.zfw.consumer.service.AppService;
+import com.zfw.consumer.service.impl.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
