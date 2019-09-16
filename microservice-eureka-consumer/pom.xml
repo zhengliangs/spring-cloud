@@ -46,6 +46,7 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.retry/spring-retry -->
+        <!--ribbon重试需要加入此依赖-->
         <dependency>
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>

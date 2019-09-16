@@ -20,7 +20,7 @@ eureka:
     lease-expiration-duration-in-seconds: 15
   server:
     # 自我保护模式（缺省为打开）
-    enable-self-preservation: true
+    enable-self-preservation: false
     #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
     # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）
     eviction-interval-timer-in-ms: 10000

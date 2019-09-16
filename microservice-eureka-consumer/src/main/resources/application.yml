@@ -19,21 +19,28 @@ eureka:
 
 #ribbon重试计算公式：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries *MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
 
-#-------------------RestTemplate+Ribbon重试配置-------------------
-ribbon:
-  # 同一实例最大重试次数，不包括首次调用
-  MaxAutoRetries: 1
-  # 重试其他实例的最大重试次数，不包括首次所选的server
-  MaxAutoRetriesNextServer: 1
-  # 是否所有操作都进行重试
-  #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
-  #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
-  OkToRetryOnAllOperations: false
+#-------------------Ribbon重试、负载均衡策略配置-------------------
+provider:
+  ribbon:
+    #负载均衡策略
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+    # 同一实例最大重试次数，不包括首次调用
+    MaxAutoRetries: 2
+    # 重试其他实例的最大重试次数，不包括首次所选的server
+    MaxAutoRetriesNextServer: 2
+    # 是否所有操作都进行重试
+    #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
+    #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，
+    #如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
+    OkToRetryOnAllOperations: false
 
-#-------------------RestTemplate+Ribbon重试配置-------------------end
+#-------------------end-------------------
 
-#-----------------负载均衡配置      Feign+Ribbon------------------
-
+#-----------------负载均衡配置  Feign+Ribbon------------------
 
 #负载均衡策略配置 ribbon（默认轮询）
 #测试重试：配置相应超时时间后，在服务提供者处，sleep大于响应超时时间，并打印请求时间，每次请求的间隔时间正好是超时时间

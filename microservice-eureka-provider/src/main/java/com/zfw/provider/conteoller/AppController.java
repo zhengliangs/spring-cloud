@@ -26,7 +26,7 @@ public class AppController {
     @GetMapping("/getTemplateRibbon")
     public String getTemplate(String name){
         log.debug("************接受到请求*************");
-        return "this is 8763， hello " + name;
+        return "this is 8764， hello " + name;
     }
 
     /**

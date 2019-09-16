@@ -18,7 +18,7 @@ public class RestTemplateService {
     private RestTemplate restTemplate;
 
     @HystrixCommand
-    public String getTemplate(String name){
+    public String getTemplateRibbon(String name){
         return restTemplate.getForObject("http://provider/appController/getTemplateRibbon?name="+name, String.class);
     }
 

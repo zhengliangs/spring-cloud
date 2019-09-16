@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateConfiguration {
 
     /**
-     * @describe 创建负载均衡RestTemplate请求模板
+     * @describe
      * @author: hero良
      * @param 
      * @date: 2019/9/16 15:22

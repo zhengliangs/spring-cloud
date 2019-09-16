@@ -19,9 +19,9 @@ public class RestTemplateController {
     @Autowired
     private RestTemplateService restTemplateService;
 
-    @GetMapping("/getTemplate")
+    @GetMapping("/getTemplateRibbon")
     public String getTemplate(String name){
-        return restTemplateService.getTemplate(name);
+        return restTemplateService.getTemplateRibbon(name);
     }
 
     @GetMapping("/getTemplateTimeout")
