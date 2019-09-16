@@ -7,7 +7,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author hero良
  * @Classname RestTemplateService
- * @description TODO
+ * @description 请求模板类
  * @Date 2019/9/16 15:30
  */
 @Service(value = "restTemplateService")
