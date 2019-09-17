@@ -9,33 +9,32 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @author hero良
- * @Classname RestTemplateService
+ * @Classname RibbonService
  * @description 请求模板类
  * @Date 2019/9/16 15:30
  */
 @Slf4j
 @Service(value = "restTemplateService")
-public class RestTemplateService {
+public class RibbonService {
 
     @Autowired
     private RestTemplate restTemplate;
 
-    public String getTemplateRibbon(String name){
-        return restTemplate.getForObject("http://provider/appController/getTemplateRibbon?name="+name, String.class);
+    public String getRibbonBalancer(String name){
+        return restTemplate.getForObject("http://provider/appController/getRibbonBalancer?name="+name, String.class);
     }
 
-    public String getTemplateTimeout(String name){
-        return restTemplate.getForObject("http://provider/appController/getTemplateTimeout?name="+name, String.class);
+    public String getRibbonTimeout(String name){
+        return restTemplate.getForObject("http://provider/appController/getRibbonTimeout?name="+name, String.class);
     }
 
     @HystrixCommand(fallbackMethod = "getHystrixFall")
-    public String getHystrix(String name){
-        return restTemplate.getForObject("http://provider/appController/getHystrix?name="+name, String.class);
+    public String getRibbonHystrix(String name){
+        return restTemplate.getForObject("http://provider/appController/getRibbonHystrix?name="+name, String.class);
     }
 
     String getHystrixFall(String name, Throwable t) {
-        log.debug("name====" + name);
-        log.error("getHystrix"+ t);
-        return "this is hystrix getHystrix";
+        log.debug("name====" + name + "    t===="+t);
+        return "this is fallbackMethod getRibbonHystrix";
     }
 }

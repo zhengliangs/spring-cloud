@@ -23,8 +23,8 @@ public class AppController {
      * @date: 2019/9/16 16:25
      * @return:
      */
-    @GetMapping("/getTemplateRibbon")
-    public String getTemplateRibbon(String name){
+    @GetMapping("/getRibbonBalancer")
+    public String getRibbonBalancer(String name){
         log.debug("************接受到请求*************");
         return "hello " + name+" , this is 8764";
     }
@@ -36,8 +36,8 @@ public class AppController {
      * @date: 2019/9/16 16:26
      * @return: 
      */
-    @GetMapping("/getTemplateTimeout")
-    public String getTemplateTimeout(String name){
+    @GetMapping("/getRibbonTimeout")
+    public String getRibbonTimeout(String name){
         log.debug("************接受到请求*************");
         try {
             Thread.sleep(6000);
@@ -54,14 +54,14 @@ public class AppController {
      * @date 2019/9/17 11:40
      * @return
      */
-    @GetMapping("/getHystrix")
-    public String getHystrix(String name){
+    @GetMapping("/getRibbonHystrix")
+    public String getRibbonHystrix(String name){
         log.debug("************接受到请求*************");
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "hello " + name + " ,this is getHystrix";
+        return "hello " + name + " ,this is getRibbonHystrix";
     }
 }
