@@ -17,7 +17,7 @@ eureka:
     #作为服务消费者，不提供服务，不应该注册自己
     register-with-eureka: false
 
-#ribbon重试计算公式：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries *MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
+#ribbon重试计算公式：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
 
 #-------------------Ribbon重试、负载均衡策略配置-------------------
 provider:
@@ -29,7 +29,7 @@ provider:
     #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
     #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
     # 同一实例最大重试次数，不包括首次调用
-    MaxAutoRetries: 2
+    MaxAutoRetries: 1
     # 重试其他实例的最大重试次数，不包括首次所选的server
     MaxAutoRetriesNextServer: 2
     # 是否所有操作都进行重试
@@ -39,6 +39,26 @@ provider:
     OkToRetryOnAllOperations: false
 
 #-------------------end-------------------
+
+#-----------------Hystrix配置-----------------------
+# === === === == 默认Command === === === ==
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          # 调用隔离方式, 默认: 采用线程隔离, ExecutionIsolationStrategy:THREAD
+          strategy: THREAD
+          # 调用超时时间, 默认: 5 秒
+          thread:
+            timeoutInMilliseconds: 5000
+          # 使用信号量隔离时, 命令调用最大的并发数
+          semaphore:
+            maxConcurrentRequests: 10
+    fallback:
+      isolation:
+        semaphore:
+          maxConcurrentRequests: 10
 
 #-----------------负载均衡配置  Feign+Ribbon------------------
 
@@ -100,4 +120,4 @@ provider:
 logging:
   config: classpath:logback-boot.xml
   level:
-    com.zfw.consumer.conteoller: debug
+    com.zfw.consumer: debug

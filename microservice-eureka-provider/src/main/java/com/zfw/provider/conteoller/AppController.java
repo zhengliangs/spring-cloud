@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppController {
 
     /**
-     * @describe 测试RestTemplate+Ribbon负载均衡
+     * @describe Ribbon负载均衡测试
      * @author: hero良
      * @param
      * @date: 2019/9/16 16:25
      * @return:
      */
     @GetMapping("/getTemplateRibbon")
-    public String getTemplate(String name){
+    public String getTemplateRibbon(String name){
         log.debug("************接受到请求*************");
-        return "this is 8764， hello " + name;
+        return "hello " + name+" , this is 8764";
     }
 
     /**
-     * @describe 测试RestTemplate熔断
+     * @describe Ribbon超时测试
      * @author: hero良
      * @param
      * @date: 2019/9/16 16:26
@@ -48,28 +48,20 @@ public class AppController {
     }
 
     /**
-    * @description 负载均衡测试
-    * 使用application来启动两个不同的port,返回不同的端口号（8763和8764）
-    * @author hero良
-    * @date 2019/9/14 21:57
-    * @return java.lang.String
-    * @version  1.0
-    */
-    @GetMapping(value = "/getRibbon")
-    public String getRibbon(){
-        log.debug("请求进入");
-        return "hi ribbon, from port 8763";
-    }
-
-    @GetMapping(value = "/verifyHystrix")
-    public String verifyHystrix(){
-        log.debug("******接收到请求******");
+     * @description Hystrix熔断降级测试
+     * @author hero良
+     * @param
+     * @date 2019/9/17 11:40
+     * @return
+     */
+    @GetMapping("/getHystrix")
+    public String getHystrix(String name){
+        log.debug("************接受到请求*************");
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            log.error("verifyHystrix", e);
         }
-        return "hello verifyHystrix";
+        return "hello " + name + " ,this is getHystrix";
     }
 }

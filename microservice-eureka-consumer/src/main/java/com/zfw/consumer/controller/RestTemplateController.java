@@ -1,6 +1,6 @@
 package com.zfw.consumer.controller;
 
-import com.zfw.consumer.service.impl.RestTemplateService;
+import com.zfw.consumer.service.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +27,10 @@ public class RestTemplateController {
     @GetMapping("/getTemplateTimeout")
     public String getTemplateTimeout(String name){
         return restTemplateService.getTemplateTimeout(name);
+    }
+
+    @GetMapping("/getHystrix")
+    public String getHystrix(String name){
+        return restTemplateService.getHystrix(name);
     }
 }

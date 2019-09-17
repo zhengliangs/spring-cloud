@@ -1,4 +1,4 @@
-package com.zfw.consumer.service.impl;
+package com.zfw.consumer.service;
 
 import com.zfw.consumer.fegin.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +12,6 @@ public class AppService {
 
     public String getName(Integer id) {
         return providerService.getName(id);
-    }
-
-    public String getRibbon() {
-        return providerService.getRibbon();
     }
 
     public String verifyHystrix() {

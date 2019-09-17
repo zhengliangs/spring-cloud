@@ -8,19 +8,19 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @author hero良
- * @Classname RestTemplateConfiguration
+ * @classname RestTemplateConfiguration
  * @description restTemplate配置类
- * @Date 2019/9/16 15:21
+ * @date 2019/9/16 15:21
  */
 @Configuration
 public class RestTemplateConfiguration {
 
     /**
-     * @describe
-     * @author: hero良
-     * @param 
-     * @date: 2019/9/16 15:22
-     * @return: 
+     * @description
+     * @author hero良
+     * @param
+     * @date 2019/9/16 15:22
+     * @return
      */
     @Bean
     @LoadBalanced  //注解必须加
