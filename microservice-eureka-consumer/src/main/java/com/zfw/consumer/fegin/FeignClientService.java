@@ -12,4 +12,7 @@ public interface FeignClientService {
 
     @GetMapping("/appController/getFeignTimeout")
     String getFeignTimeout(@RequestParam(value = "name") String name);
+
+    @GetMapping("/appController/getFeignHystrix")
+    String getFeignHystrix(@RequestParam(value = "name") String name);
 }

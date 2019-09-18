@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @Service(value = "ribbonService")
 public class RibbonService {
 
-    @Autowired
+//    @Autowired
     private RestTemplate restTemplate;
 
     public String getRibbonBalancer(String name){
