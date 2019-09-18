@@ -22,13 +22,13 @@ public class RestTemplateConfiguration {
      * @date 2019/9/16 15:22
      * @return
      */
-    @Bean
-    @LoadBalanced  //注解必须加
-    public RestTemplate restTemplate(){
-        //配置超时
-        HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-        httpRequestFactory.setConnectTimeout(500);
-        httpRequestFactory.setReadTimeout(2000);
-        return new RestTemplate(httpRequestFactory);
-    }
+//    @Bean
+//    @LoadBalanced  //注解必须加
+//    public RestTemplate restTemplate(){
+//        //配置超时
+//        HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+//        httpRequestFactory.setConnectTimeout(500);
+//        httpRequestFactory.setReadTimeout(2000);
+//        return new RestTemplate(httpRequestFactory);
+//    }
 }

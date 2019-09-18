@@ -1,7 +1,7 @@
 package com.zfw.consumer.service;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * @Date 2019/9/16 15:30
  */
 @Slf4j
-@Service(value = "restTemplateService")
+@Service(value = "ribbonService")
 public class RibbonService {
 
     @Autowired
@@ -28,11 +28,18 @@ public class RibbonService {
         return restTemplate.getForObject("http://provider/appController/getRibbonTimeout?name="+name, String.class);
     }
 
-    @HystrixCommand(fallbackMethod = "getHystrixFall")
+//    @HystrixCommand(fallbackMethod = "getHystrixFall")
     public String getRibbonHystrix(String name){
         return restTemplate.getForObject("http://provider/appController/getRibbonHystrix?name="+name, String.class);
     }
 
+    /**
+     * @description 降级回退
+     * @author hero良
+     * @param
+     * @date 2019/9/18 16:54
+     * @return 
+     */
     String getHystrixFall(String name, Throwable t) {
         log.debug("name====" + name + "    t===="+t);
         return "this is fallbackMethod getRibbonHystrix";

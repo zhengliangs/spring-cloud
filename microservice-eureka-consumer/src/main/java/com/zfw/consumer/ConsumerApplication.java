@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 //@SpringCloudApplication
 //开启熔断器
-@EnableHystrix
+//@EnableHystrix
 public class ConsumerApplication {
 
     public static void main(String[] args) {

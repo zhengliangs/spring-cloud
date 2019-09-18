@@ -35,6 +35,7 @@ public class RibbonController {
 
     /**
      * @description ribbon的超时与重试
+     * 超时需要在创建RestTemplate的时候指定时间，配置在配置文件中不生效，重试需要引入Spring-retry依赖
      * @author hero良
      * @param name
      * @date 2019/9/17 21:52
