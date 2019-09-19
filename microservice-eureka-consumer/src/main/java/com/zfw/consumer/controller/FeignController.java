@@ -47,4 +47,18 @@ public class FeignController {
     public String getFeignTimeout(String name){
         return feignService.getFeignTimeout(name);
     }
+
+    /**
+     * @description feign+hystrix
+     * @author hero良
+     * @param name
+     * @date 2019/9/17 21:52
+     * @return java.lang.String
+     * @exception
+     * @version  1.0
+     */
+    @GetMapping("/getFeignHystrix")
+    public String getFeignHystrix(String name){
+        return feignService.getFeignHystrix(name);
+    }
 }

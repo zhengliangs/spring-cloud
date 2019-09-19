@@ -106,11 +106,11 @@ public class AppController {
     @GetMapping("/getFeignHystrix")
     public String getFeignHystrix(String name){
         log.debug("************接受到请求*************");
-        try {
-            Thread.sleep(6000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(6000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return "hello " + name + " ,this is getFeignHystrix";
     }
 }

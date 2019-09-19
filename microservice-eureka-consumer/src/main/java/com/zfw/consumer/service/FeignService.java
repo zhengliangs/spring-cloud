@@ -23,4 +23,8 @@ public class FeignService {
     public String getFeignTimeout(String name){
         return feignClientService.getFeignTimeout(name);
     }
+
+    public String getFeignHystrix(String name){
+        return feignClientService.getFeignHystrix(name);
+    }
 }
