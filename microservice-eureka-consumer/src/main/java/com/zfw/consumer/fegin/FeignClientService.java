@@ -1,6 +1,6 @@
 package com.zfw.consumer.fegin;
 
-import com.zfw.consumer.Hystrix.FeignHystrix;
+import com.zfw.consumer.hystrix.FeignHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
