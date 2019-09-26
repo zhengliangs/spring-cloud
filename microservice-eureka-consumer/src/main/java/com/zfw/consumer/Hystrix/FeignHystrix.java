@@ -1,4 +1,4 @@
-package com.zfw.consumer.Hystrix;
+package com.zfw.consumer.hystrix;
 
 import com.zfw.consumer.fegin.FeignClientService;
 import feign.hystrix.FallbackFactory;
