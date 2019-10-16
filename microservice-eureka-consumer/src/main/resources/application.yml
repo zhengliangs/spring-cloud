@@ -112,7 +112,7 @@ hystrix:
   threadpool:
     default:
       # 配置线程池大小, 默认值10个
-      coreSize: 0
+      coreSize: 10
       # 配置队列长度, 默认-1使用SynchronousQueue,其他值则使用LinkedBlockingQueue:不可动态修改:
       maxQueueSize: -1
       # 队列拒绝的阈值,可通过修改这个变量动态修改允许排队的长度: maxQueueSize=-1时不适用:
