@@ -6,8 +6,8 @@
         <groupId>com.zfw.springcloud</groupId>
         <artifactId>springcloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <artifactId>microservice-consumer</artifactId>
     <name>microservice-consumer</name>
 

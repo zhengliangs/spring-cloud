@@ -13,9 +13,9 @@
     <artifactId>springcloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>microservice-eureka-server</module>
-        <module>microservice-eureka-provider</module>
-        <module>microservice-eureka-consumer</module>
+        <module>microservice-register</module>
+        <module>microservice-provider</module>
+        <module>microservice-consumer</module>
     </modules>
     <!--<packaging>pom</packaging>-->
 
