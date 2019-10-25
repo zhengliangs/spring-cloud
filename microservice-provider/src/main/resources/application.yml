@@ -16,14 +16,19 @@ server:
 
 eureka:
   client:
+    #表示eureka client间隔多久去拉取服务注册信息，默认为30秒，对于api-gateway，如果要迅速获取服务注册状态，可以缩小该值，比如5秒
+    registry-fetch-interval-seconds: 30
     service-url:
+      #单机版 同样适合集群版，但是8760端口挂掉，则新的服务不能再注册
       defaultZone: http://eureka1:8760/eureka/
+      #集群版
 #      defaultZone: http://eureka1:8760/eureka/,http://eureka2:8761/eureka/,http://eureka3:8762/eureka/
   instance:
     #10秒没有续约，Server会认为该服务宕机，会从服务列表剔除
-    lease-expiration-duration-in-seconds: 10
+    lease-expiration-duration-in-seconds: 90
     #服务续约时间单位：秒，默认30秒
     lease-renewal-interval-in-seconds: 5
+
 
 #日志配置
 logging:

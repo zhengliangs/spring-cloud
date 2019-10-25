@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Slf4j
 @Service(value = "ribbonService")
+//类级别注解，对类中所有被@HystrixCommand标注的方法进行熔断
 @DefaultProperties(defaultFallback = "getHystrixFall")
 public class RibbonService {
 
