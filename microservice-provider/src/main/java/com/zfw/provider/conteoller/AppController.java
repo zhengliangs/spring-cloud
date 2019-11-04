@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/appController")
 public class AppController {
 
+    @GetMapping("/getProductMsg")
+    public String getProductMsg(){
+        return "this is app product msg";
+    }
+
     /**
      * @describe Ribbon负载均衡测试
      * @author: hero良
