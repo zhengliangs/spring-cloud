@@ -4,7 +4,7 @@ spring:
     name: provider
 
 server:
-  port: 8764
+  port: 8765
   #工程名称
 #  servlet:
 #    context-path: /provider
@@ -12,8 +12,8 @@ server:
 eureka:
   client:
     service-url:
-#      defaultZone: http://eureka1:8761/eureka/
-      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+      defaultZone: http://eureka1:8761/eureka/
+#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
     #10秒没有续约，Server会认为改服务宕机，会从服务列表剔除
     lease-expiration-duration-in-seconds: 10

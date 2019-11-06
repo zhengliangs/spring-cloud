@@ -19,6 +19,12 @@ public class RibbonController {
     @Autowired
     private RibbonService ribbonService;
 
+    @GetMapping("/getProductMsg")
+    public String getProductMsg(){
+        return ribbonService.getProductMsg();
+    }
+
+
     /**
      * @description ribbon的负载均衡
      * @author hero良

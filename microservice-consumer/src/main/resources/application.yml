@@ -1,21 +1,17 @@
 spring:
   application:
     name: consumer
-  #RestTemplate+Ribbon重试配置
-#  cloud:
-#    loadbalancer:
-#      retry:
-#        enabled: true
 
 server:
-  port: 8765
+  port: 8766
 
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka1:8760/eureka/,http://eureka2:8761/eureka/,http://eureka3:8762/eureka/
-    #作为服务消费者，不提供服务，不应该注册自己
-    register-with-eureka: false
+      defaultZone: http://eureka1:8761/eureka/
+#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8762/eureka/
+    #作为服务消费者，不提供服务，不注册自己
+    register-with-eureka: true
 
 #ribbon重试计算公式：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
 
@@ -46,28 +42,28 @@ eureka:
 #负载均衡策略配置 ribbon（默认轮询）
 #测试重试：配置相应超时时间后，在服务提供者处，sleep大于响应超时时间，并打印请求时间，每次请求的间隔时间正好是超时时间
 #provider 为注册中心application（只对provider服务生效）不指定则全局生效（所有请求），
-provider:
-  ribbon:
-    #项目中没有使用eureka时，
-#    listOfServers: 127.0.0.1:8764,127.0.0.1:8763
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
-    #请求连接超时时间 单位ms
-    ConnectTimeout: 500
-    #请求处理的超时时间 单位ms
-    ReadTimeout: 2000
-    # 同一实例最大重试次数，不包括首次调用
-    MaxAutoRetries: 0
-    # 重试其他实例的最大重试次数，不包括首次所选的server
-    MaxAutoRetriesNextServer: 2
-    # 是否所有操作都进行重试
-    #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
-    #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，
-    #如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
-    OkToRetryOnAllOperations: false
+#provider:
+#  ribbon:
+#    #项目中没有使用eureka时，
+##    listOfServers: 127.0.0.1:8764,127.0.0.1:8763
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+##    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+##    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+##    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+##    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+#    #请求连接超时时间 单位ms
+#    ConnectTimeout: 500
+#    #请求处理的超时时间 单位ms
+#    ReadTimeout: 2000
+#    # 同一实例最大重试次数，不包括首次调用
+#    MaxAutoRetries: 0
+#    # 重试其他实例的最大重试次数，不包括首次所选的server
+#    MaxAutoRetriesNextServer: 2
+#    # 是否所有操作都进行重试
+#    #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
+#    #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，
+#    #如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
+#    OkToRetryOnAllOperations: false
 #-----------------负载均衡配置     end    ------------------
 
 #开启hystrix
