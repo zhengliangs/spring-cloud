@@ -23,7 +23,7 @@ public class RestTemplateConfiguration {
      * @return
      */
     @Bean
-    @LoadBalanced  //注解必须加
+    @LoadBalanced //启用负载均衡
     public RestTemplate restTemplate(){
         //配置超时
         HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();

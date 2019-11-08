@@ -1,7 +1,7 @@
 package com.zfw.consumer.service;
 
-import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+//import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -46,11 +46,11 @@ public class RibbonService {
         return restTemplate.getForObject("http://provider/appController/getRibbonBalancer?name="+name, String.class);
     }
 
-    public String getRibbonTimeout(String name){
-        return restTemplate.getForObject("http://provider/appController/getRibbonTimeout?name="+name, String.class);
+    public String getRibbonTimeout(){
+        return restTemplate.getForObject("http://provider/appController/getRibbonTimeout", String.class);
     }
 
-    @HystrixCommand
+//    @HystrixCommand
     public String getRibbonHystrix(String name){
         return restTemplate.getForObject("http://provider/appController/getRibbonHystrix?name="+name, String.class);
     }

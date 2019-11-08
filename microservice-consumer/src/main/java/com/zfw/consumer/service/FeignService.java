@@ -20,8 +20,8 @@ public class FeignService {
         return feignClientService.getFeignBalancer(name);
     }
 
-    public String getFeignTimeout(String name){
-        return feignClientService.getFeignTimeout(name);
+    public String getFeignTimeout(){
+        return feignClientService.getFeignTimeout();
     }
 
     public String getFeignHystrix(String name){

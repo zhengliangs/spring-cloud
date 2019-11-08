@@ -16,6 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/appController")
 public class AppController {
 
+
+    /**
+     * @description
+     * @author hero良
+     * @date 2019/9/17 21:52
+     * @return java.lang.String
+     * @exception
+     * @version  1.0
+     */
     @GetMapping("/getProductMsg")
     public String getProductMsg(){
         return "this is app product msg";
@@ -31,7 +40,7 @@ public class AppController {
     @GetMapping("/getRibbonBalancer")
     public String getRibbonBalancer(String name){
         log.debug("************接受到请求*************");
-        return "hello " + name+" , this is 8764";
+        return "hello !" + name+" , this is 8765";
     }
 
     /**
@@ -42,14 +51,14 @@ public class AppController {
      * @return: 
      */
     @GetMapping("/getRibbonTimeout")
-    public String getRibbonTimeout(String name){
+    public String getRibbonTimeout(){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(6000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "hello " + name;
+        return "hello";
     }
 
     /**
@@ -91,14 +100,14 @@ public class AppController {
      * @return:
      */
     @GetMapping("/getFeignTimeout")
-    public String getFeignTimeout(String name){
+    public String getFeignTimeout(){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(6000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "hello " + name;
+        return "hello ";
     }
 
     /**

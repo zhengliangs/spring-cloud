@@ -19,6 +19,14 @@ public class RibbonController {
     @Autowired
     private RibbonService ribbonService;
 
+    /**
+     * @description
+     * @author hero良
+     * @date 2019/9/17 21:52
+     * @return java.lang.String
+     * @exception
+     * @version  1.0
+     */
     @GetMapping("/getProductMsg")
     public String getProductMsg(){
         return ribbonService.getProductMsg();
@@ -43,15 +51,14 @@ public class RibbonController {
      * @description ribbon的超时与重试
      * 超时需要在创建RestTemplate的时候指定时间，配置在配置文件中不生效，重试需要引入Spring-retry依赖
      * @author hero良
-     * @param name
      * @date 2019/9/17 21:52
      * @return java.lang.String
      * @exception
      * @version  1.0
      */
     @GetMapping("/getRibbonTimeout")
-    public String getRibbonTimeout(String name){
-        return ribbonService.getRibbonTimeout(name);
+    public String getRibbonTimeout(){
+        return ribbonService.getRibbonTimeout();
     }
 
     /**

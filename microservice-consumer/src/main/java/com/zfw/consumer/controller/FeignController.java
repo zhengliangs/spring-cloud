@@ -35,17 +35,15 @@ public class FeignController {
 
     /**
      * @description feign的超时与重试
-     * 超时需要在创建RestTemplate的时候指定时间，配置在配置文件中不生效，重试需要引入Spring-retry依赖
      * @author hero良
-     * @param name
      * @date 2019/9/17 21:52
      * @return java.lang.String
      * @exception
      * @version  1.0
      */
     @GetMapping("/getFeignTimeout")
-    public String getFeignTimeout(String name){
-        return feignService.getFeignTimeout(name);
+    public String getFeignTimeout(){
+        return feignService.getFeignTimeout();
     }
 
     /**
