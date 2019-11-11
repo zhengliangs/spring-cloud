@@ -2,6 +2,7 @@ package com.zfw.consumer.hystrix;
 
 import com.zfw.consumer.fegin.FeignClientService;
 import feign.hystrix.FallbackFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,11 +11,15 @@ import org.springframework.stereotype.Component;
  * @description TODO
  * @date 2019/9/18
  */
+@Slf4j
 @Component
 public class FeignHystrix implements FallbackFactory<FeignClientService> {
 
     @Override
     public FeignClientService create(Throwable throwable) {
+        //打印日志
+        log.info("fallback; throwable was: " + throwable.getMessage());
+
         return new FeignClientService() {
             @Override
             public String getFeignBalancer(String name) {
