@@ -44,7 +44,7 @@ public class AppController {
     }
 
     /**
-     * @describe Ribbon超时测试
+     * @describe Ribbon超时重试测试
      * @author: hero良
      * @param
      * @date: 2019/9/16 16:26
@@ -72,7 +72,7 @@ public class AppController {
     public String getRibbonHystrix(String name){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(6000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -93,7 +93,7 @@ public class AppController {
     }
 
     /**
-     * @describe Feign超时测试
+     * @describe Feign超时重试测试
      * @author: hero良
      * @param
      * @date: 2019/9/16 16:26
@@ -120,11 +120,11 @@ public class AppController {
     @GetMapping("/getFeignHystrix")
     public String getFeignHystrix(String name){
         log.debug("************接受到请求*************");
-//        try {
-//            Thread.sleep(6000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "hello " + name + " ,this is getFeignHystrix";
     }
 }

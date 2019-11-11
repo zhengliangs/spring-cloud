@@ -22,7 +22,7 @@ public class FeignHystrix implements FallbackFactory<FeignClientService> {
             }
 
             @Override
-            public String getFeignTimeout(String name) {
+            public String getFeignTimeout() {
                 return "进入hystrix的getFeignTimeout";
             }
 
