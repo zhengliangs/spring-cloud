@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/9/18 17:29
  */
 @RestController
-@RequestMapping("/feignController")
 public class FeignController {
 
     @Autowired

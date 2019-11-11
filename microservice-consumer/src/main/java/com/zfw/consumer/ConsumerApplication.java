@@ -6,11 +6,12 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+//restTemplate+ribbon结合hystrix加上此注解开启熔断器
+//@EnableHystrix
 //开启Eureka
 @EnableEurekaClient
 //开启Feign客户端注解
 @EnableFeignClients
-//@EnableHystrix
 @SpringBootApplication
 public class ConsumerApplication {
 
