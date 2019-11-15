@@ -53,7 +53,7 @@ provider:
     # 同一实例最大重试次数，不包括首次调用
     MaxAutoRetries: 0
     # 重试其他实例的最大重试次数，不包括首次所选的server
-    MaxAutoRetriesNextServer: 2
+    MaxAutoRetriesNextServer: 0
     # 是否所有操作都进行重试
     #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
     #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，
@@ -128,6 +128,9 @@ management:
     web:
       exposure:
         include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 #日志配置
 logging:

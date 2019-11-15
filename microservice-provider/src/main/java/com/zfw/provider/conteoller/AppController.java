@@ -72,7 +72,7 @@ public class AppController {
     public String getRibbonHystrix(String name){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -121,7 +121,7 @@ public class AppController {
     public String getFeignHystrix(String name){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

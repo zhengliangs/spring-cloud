@@ -4,10 +4,9 @@ import com.zfw.consumer.hystrix.FeignHystrix;
 import com.zfw.consumer.hystrix.FeignHystrixConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "provider", /**fallback = HystrixClientFallback.class**/ fallbackFactory = FeignHystrix.class)
+@FeignClient(value = "provider", /*fallback = HystrixClientFallback.class**/ fallbackFactory = FeignHystrix.class)
 public interface FeignClientService {
 
     @GetMapping("/appController/getFeignBalancer")
@@ -17,5 +16,5 @@ public interface FeignClientService {
     String getFeignTimeout();
 
     @GetMapping("/appController/getFeignHystrix")
-    String getFeignHystrix(@PathVariable(value = "name") String name);
+    String getFeignHystrix(@RequestParam(value = "name") String name);
 }

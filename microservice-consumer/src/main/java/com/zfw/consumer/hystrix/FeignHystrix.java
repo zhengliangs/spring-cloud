@@ -18,7 +18,7 @@ public class FeignHystrix implements FallbackFactory<FeignClientService> {
     @Override
     public FeignClientService create(Throwable throwable) {
         //打印日志
-        log.info("fallback; throwable was: " + throwable.getMessage());
+        log.error("fallback; throwable was: " + throwable.getMessage());
 
         return new FeignClientService() {
             @Override
