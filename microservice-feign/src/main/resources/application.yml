@@ -1,0 +1,105 @@
+spring:
+  application:
+    name: feign
+
+server:
+  port: 8767
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:8761/eureka/
+#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8761/eureka/,http://eureka3:8762/eureka/
+    #作为服务消费者，不提供服务，不注册自己
+    register-with-eureka: false
+
+provider:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+    #请求连接超时时间 单位ms
+    ConnectTimeout: 500
+    #请求处理的超时时间 单位ms
+    ReadTimeout: 2000
+    # 同一实例最大重试次数，不包括首次调用
+    MaxAutoRetries: 0
+    # 重试其他实例的最大重试次数，不包括首次所选的server
+    MaxAutoRetriesNextServer: 0
+    # 是否所有操作都进行重试
+    #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
+    #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，
+    #如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
+    OkToRetryOnAllOperations: false
+#-----------------负载均衡配置     end    ------------------
+
+#开启hystrix
+feign:
+  hystrix:
+    enabled: true
+
+#  hystrix超时需要 > MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) + 1 总时间，否则重试没有意义
+#-----------------Hystrix配置-----------------------
+hystrix:
+  # === === === == 默认Command === === === ==
+  command:
+    default:
+      execution:
+        isolation:
+          # 调用隔离方式, 默认: 采用线程隔离, ExecutionIsolationStrategy:THREAD
+          strategy: THREAD
+          # 调用超时时间, 默认: 5 秒
+          thread:
+            timeoutInMilliseconds: 8000
+          # 使用信号量隔离时, 命令调用最大的并发数
+          semaphore:
+            maxConcurrentRequests: 10
+      #使用信号量隔离时, 命令fallback调用最大的并发数
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 10
+      # === === === == 熔断器 === === === ==
+      circuitBreaker:
+        # 熔断器在整个统计时间内是否开启的阀值, 默认20个请求
+        requestVolumeThreshold: 8
+        # 熔断器默认工作时间, 默认: 5 秒
+        sleepWindowInMilliseconds: 5
+        # 默认: 50%, 当出错率超过50% 后熔断器启动
+        errorThresholdPercentage: 50
+        # 是否强制开启熔断器阻断所有请求, 默认: false, 不开启
+        forceOpen: false
+        # 是否允许熔断器忽略错误, 默认false, 不开启
+        forceClosed: false
+  # === === === == 线程池 === === === ==
+  threadpool:
+    default:
+      # 配置线程池大小, 默认值10个
+      coreSize: 10
+      # 配置队列长度, 默认-1使用SynchronousQueue,其他值则使用LinkedBlockingQueue:不可动态修改:
+      maxQueueSize: -1
+      # 队列拒绝的阈值,可通过修改这个变量动态修改允许排队的长度: maxQueueSize=-1时不适用:
+      queueSizeRejectionThreshold: 5
+      # 线程生存时间, 默认1分钟
+      keepAliveTimeMinutes: 1
+#-----------------end-----------------------
+
+
+#----------------end--------------
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+#日志配置
+logging:
+  config: classpath:logback-boot.xml
+  level:
+    com.zfw.consumer: debug

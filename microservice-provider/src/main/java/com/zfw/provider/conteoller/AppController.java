@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/appController")
 public class AppController {
 
-
     /**
      * @description
      * @author hero良
@@ -27,7 +26,7 @@ public class AppController {
      */
     @GetMapping("/getProductMsg")
     public String getProductMsg(){
-        return "this is app product msg";
+        return "产品研发成功了！！！";
     }
 
     /**
@@ -39,7 +38,6 @@ public class AppController {
      */
     @GetMapping("/getRibbonBalancer")
     public String getRibbonBalancer(String name){
-        log.debug("************接受到请求*************");
         return "hello !" + name+" , this is 8765";
     }
 
@@ -69,15 +67,20 @@ public class AppController {
      * @return
      */
     @GetMapping("/getRibbonHystrix")
-    public String getRibbonHystrix(String name){
+    public String getRibbonHystrix(){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "hello " + name + " ,this is getRibbonHystrix";
+        return "hello ,this is getRibbonHystrix";
     }
+
+
+
+    /**********************************************************************************************************************************/
+
 
     /**
      * @describe Feign负载均衡测试
@@ -88,7 +91,6 @@ public class AppController {
      */
     @GetMapping("/getFeignBalancer")
     public String getFeignBalancer(String name){
-        log.debug("************接受到请求*************");
         return "hello " + name+" , this is 8764";
     }
 

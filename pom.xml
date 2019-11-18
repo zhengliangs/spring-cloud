@@ -14,10 +14,11 @@
     <artifactId>springcloud</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>microservice-register</module>
+        <module>microservice-eureka</module>
         <module>microservice-provider</module>
-        <module>microservice-consumer</module>
+        <module>microservice-feign</module>
         <module>microservice-hystrix-dashboard</module>
+        <module>microservice-ribbon</module>
     </modules>
     <!--<packaging>pom</packaging>-->
 

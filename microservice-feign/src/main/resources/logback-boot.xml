@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <!-- <property name="log_dir" value="${catalina.base}/logs" /> -->
+    <property name="logPath" value="./logs/feign" />
+    <property name="logFileName" value="feign"></property>
+    <property name="logLevel" value="info"/>
+    <property name="maxHistory" value="90"/>
+    <property name="maxFileSize" value="20MB"/>
+
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                [%level] %d{yyyy-MM-dd HH:mm:ss} %logger - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/%d{yyyy-MM-dd}/${logFileName}_error.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                [%level] %d{yyyy-MM-dd HH:mm:ss} %logger - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- INFO级别日志 appender -->
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/%d{yyyy-MM-dd}/${logFileName}.%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+            <maxHistory>${maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%p][%d{yyyy-MM-dd HH:mm:ss}][%c][%M][%L] [->] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root >
+        <!-- 打印debug级别日志及以上级别日志 -->
+        <level value="${logLevel}" />
+        <!-- 控制台输出 -->
+        <appender-ref ref="console" />
+        <!-- 文件输出 -->
+        <appender-ref ref="INFO" />
+        <appender-ref ref="ERROR" />
+    </root>
+</configuration>
