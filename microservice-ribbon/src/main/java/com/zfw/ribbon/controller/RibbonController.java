@@ -31,7 +31,7 @@ public class RibbonController {
      */
     @GetMapping("/getRibbonBalancer")
     public String getRibbonBalancer(String name){
-        return restTemplate.getForObject("http://provider/appController/getRibbonBalancer?name="+name, String.class);
+        return restTemplate.getForObject("http://provider-service/appController/getRibbonBalancer?name="+name, String.class);
     }
 
     /**
@@ -44,7 +44,7 @@ public class RibbonController {
      */
     @GetMapping("/getRibbonTimeout")
     public String getRibbonTimeout(){
-        return restTemplate.getForObject("http://provider/appController/getRibbonTimeout", String.class);
+        return restTemplate.getForObject("http://provider-service/appController/getRibbonTimeout", String.class);
     }
 
     /**
@@ -55,7 +55,7 @@ public class RibbonController {
     @GetMapping("/getRibbonHystrix")
     @HystrixCommand(defaultFallback = "getHystrixFall")
     public String getRibbonHystrix(){
-        return restTemplate.getForObject("http://provider/appController/getRibbonHystrix", String.class);
+        return restTemplate.getForObject("http://provider-service/appController/getRibbonHystrix", String.class);
     }
 
     /**

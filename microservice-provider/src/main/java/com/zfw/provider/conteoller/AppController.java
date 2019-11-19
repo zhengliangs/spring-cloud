@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author hero良
  * @className HelloController
  * @description TODO
- * @date 2019/9/10
  */
 @Slf4j
 @RestController
@@ -19,7 +18,6 @@ public class AppController {
     /**
      * @description
      * @author hero良
-     * @date 2019/9/17 21:52
      * @return java.lang.String
      * @exception
      * @version  1.0
@@ -33,7 +31,6 @@ public class AppController {
      * @describe Ribbon负载均衡测试
      * @author: hero良
      * @param
-     * @date: 2019/9/16 16:25
      * @return:
      */
     @GetMapping("/getRibbonBalancer")
@@ -45,8 +42,7 @@ public class AppController {
      * @describe Ribbon超时重试测试
      * @author: hero良
      * @param
-     * @date: 2019/9/16 16:26
-     * @return: 
+     * @return:
      */
     @GetMapping("/getRibbonTimeout")
     public String getRibbonTimeout(){
@@ -63,7 +59,6 @@ public class AppController {
      * @description Hystrix熔断降级测试
      * @author hero良
      * @param
-     * @date 2019/9/17 11:40
      * @return
      */
     @GetMapping("/getRibbonHystrix")
@@ -86,7 +81,6 @@ public class AppController {
      * @describe Feign负载均衡测试
      * @author: hero良
      * @param
-     * @date: 2019/9/16 16:25
      * @return:
      */
     @GetMapping("/getFeignBalancer")
@@ -98,7 +92,6 @@ public class AppController {
      * @describe Feign超时重试测试
      * @author: hero良
      * @param
-     * @date: 2019/9/16 16:26
      * @return:
      */
     @GetMapping("/getFeignTimeout")
@@ -116,17 +109,16 @@ public class AppController {
      * @description Hystrix熔断降级测试
      * @author hero良
      * @param
-     * @date 2019/9/17 11:40
      * @return
      */
     @GetMapping("/getFeignHystrix")
-    public String getFeignHystrix(String name){
+    public String getFeignHystrix(){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "hello " + name + " ,this is getFeignHystrix";
+        return "hello  ,this is getFeignHystrix";
     }
 }

@@ -7,33 +7,32 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author hero良
- * @className FeignHystrix
+ * @className FallbackFactoryHystrix
  * @description TODO
- * @date 2019/9/18
  */
 @Slf4j
 @Component
-public class FeignHystrix implements FallbackFactory<FeignClientService> {
+public class FallbackFactoryHystrix implements FallbackFactory<FeignClientService> {
 
     @Override
     public FeignClientService create(Throwable throwable) {
-        //打印日志
+
         log.error("fallback; throwable was: " + throwable.getMessage());
 
         return new FeignClientService() {
             @Override
             public String getFeignBalancer(String name) {
-                return "进入hystrix的getFeignBalancer";
+                return "这里是回退 getFeignBalancer";
             }
 
             @Override
             public String getFeignTimeout() {
-                return "进入hystrix的getFeignTimeout";
+                return "这里是回退 getFeignTimeout";
             }
 
             @Override
-            public String getFeignHystrix(String name) {
-                return "进入hystrix的getFeignHystrix";
+            public String getFeignHystrix() {
+                return "这里是回退 getFeignHystrix";
             }
         };
     }

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eurekaServer
+    name: eureka-erver
 
 server:
   port: 8762

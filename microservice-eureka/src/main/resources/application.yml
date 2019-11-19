@@ -1,7 +1,7 @@
 #单击版配置
 spring:
   application:
-    name: eurekaServer
+    name: eureka-erver
 
 # eureka 默认端口为：8761
 server:

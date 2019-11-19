@@ -9,7 +9,6 @@ import java.util.Date;
  * @author hero良
  * @className JacksonEntity
  * @description TODO
- * @date 2019/9/10
  */
 @Data
 public class JacksonEntity {

@@ -2,6 +2,7 @@ package com.zfw.ribbon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
  * @date 2019/11/15 15:39
  */
 @EnableHystrix
+@EnableEurekaClient
 @SpringBootApplication
 public class RibbonApplication {
 

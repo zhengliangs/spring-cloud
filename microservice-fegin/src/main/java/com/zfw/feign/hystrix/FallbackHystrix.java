@@ -1,15 +1,16 @@
 package com.zfw.feign.hystrix;
 
 import com.zfw.feign.fegin.FeignClientService;
+import org.springframework.stereotype.Component;
 
 /**
  * 这个类不一定要和FeignClientService写在同一个类中
  * @author hero良
- * @className HystrixClientFallback
+ * @className FallbackHystrix
  * @description
- * @date 2019/11/11 9:47
  */
-public class HystrixClientFallback implements FeignClientService {
+@Component
+public class FallbackHystrix implements FeignClientService {
 
     @Override
     public String getFeignBalancer(String name) {
@@ -22,7 +23,7 @@ public class HystrixClientFallback implements FeignClientService {
     }
 
     @Override
-    public String getFeignHystrix(String name) {
+    public String getFeignHystrix() {
         return "出错了";
     }
 }

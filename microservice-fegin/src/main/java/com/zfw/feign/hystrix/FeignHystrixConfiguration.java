@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
  * @author hero良
  * @className FeignHystrixConfiguration
  * @description
- * @date 2019/11/11 10:09
  */
 @Configuration
 public class FeignHystrixConfiguration {

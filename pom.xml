@@ -16,7 +16,7 @@
     <modules>
         <module>microservice-eureka</module>
         <module>microservice-provider</module>
-        <module>microservice-feign</module>
+        <module>microservice-fegin</module>
         <module>microservice-hystrix-dashboard</module>
         <module>microservice-ribbon</module>
     </modules>

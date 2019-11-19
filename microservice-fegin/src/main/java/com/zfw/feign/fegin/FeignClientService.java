@@ -1,11 +1,12 @@
 package com.zfw.feign.fegin;
 
-import com.zfw.feign.hystrix.FeignHystrix;
+import com.zfw.feign.hystrix.FallbackFactoryHystrix;
+import com.zfw.feign.hystrix.FallbackHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "provider", fallbackFactory = FeignHystrix.class)
+@FeignClient(value = "feignClientService", serviceId = "provider-service", /**fallbackFactory = FallbackFactoryHystrix.class*/fallback = FallbackHystrix.class)
 public interface FeignClientService {
 
     @GetMapping("/appController/getFeignBalancer")
@@ -15,5 +16,5 @@ public interface FeignClientService {
     String getFeignTimeout();
 
     @GetMapping("/appController/getFeignHystrix")
-    String getFeignHystrix(@RequestParam(value = "name") String name);
+    String getFeignHystrix();
 }

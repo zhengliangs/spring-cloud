@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @author hero良
  * @classname FeignController
  * @description TODO
- * @date 2019/9/18 17:29
  */
 @RestController
 public class FeignController {
@@ -21,7 +20,6 @@ public class FeignController {
      * @description feign的负载均衡
      * @author hero良
      * @param name
-     * @date 2019/9/17 21:52
      * @return java.lang.String
      * @exception
      * @version  1.0
@@ -34,7 +32,6 @@ public class FeignController {
     /**
      * @description feign的超时与重试
      * @author hero良
-     * @date 2019/9/17 21:52
      * @return java.lang.String
      * @exception
      * @version  1.0
@@ -47,14 +44,12 @@ public class FeignController {
     /**
      * @description feign+hystrix
      * @author hero良
-     * @param name
-     * @date 2019/9/17 21:52
      * @return java.lang.String
      * @exception
      * @version  1.0
      */
     @GetMapping("/getFeignHystrix")
-    public String getFeignHystrix(String name){
-        return feignClientService.getFeignHystrix(name);
+    public String getFeignHystrix(){
+        return feignClientService.getFeignHystrix();
     }
 }

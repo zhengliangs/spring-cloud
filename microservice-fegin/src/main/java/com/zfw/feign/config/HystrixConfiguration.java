@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
  * @author hero良
  * @className HystrixConfiguration
  * @description
- * @date 2019/11/15 11:04
  */
 @Configuration
 public class HystrixConfiguration {
