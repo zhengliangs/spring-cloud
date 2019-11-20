@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: gateway
+
+server:
+  port: 8090
+
+eureka:
+  client:
+    service-url:
+      #单机版
+      defaultZone: http://eureka1:8761/eureka/
+      #集群模式
+#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+
+#日志配置
+logging:
+  config: classpath:logback-boot.xml
+  level:
+    com.zfw.consumer: debug
