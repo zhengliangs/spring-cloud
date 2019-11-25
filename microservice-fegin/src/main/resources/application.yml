@@ -2,9 +2,29 @@ spring:
   application:
     name: feign-service
 
+  ########-spring datasource-########
+  datasource:
+    #账号配置
+    url: jdbc:mysql://192.168.216.198:3309/reefala_hero?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    #hikari数据库连接池
+    hikari:
+      pool-name: Retail_HikariCP
+      minimum-idle: 5 #最小空闲连接数量
+      idle-timeout: 180000 #空闲连接存活最大时间，默认600000（10分钟）
+      maximum-pool-size: 10 #连接池最大连接数，默认是10
+      auto-commit: true  #此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      max-lifetime: 1800000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000
+      connection-test-query: SELECT 1
+
 server:
   port: 8767
 
+########-eureka-########
 eureka:
   client:
     service-url:
@@ -13,12 +33,8 @@ eureka:
       #集群模式
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
 
-#开启断路由
-feign:
-  hystrix:
-    enabled: true
-
-#重试计算公式：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
+########-ribbon-########
+#重试：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
 provider-service:
   ribbon:
     #负载均衡策略
@@ -41,50 +57,60 @@ provider-service:
     #如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
     OkToRetryOnAllOperations: false
 
+########-hystrix-########
+#开启断路由
+feign:
+  hystrix:
+    enabled: true
+
 #hystrix超时 > MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) + 1，否则重试没有意义
 #-----------------Hystrix配置-----------------------
-#hystrix:
-#  # === === === == 默认Command === === === ==
-#  command:
-#    default:
-#      execution:
-#        isolation:
-#          # 调用隔离方式, 默认: 采用线程隔离, ExecutionIsolationStrategy:THREAD
-#          strategy: THREAD
-#          # 调用超时时间, 默认: 5 秒
-#          thread:
-#            timeoutInMilliseconds: 8000
-#          # 使用信号量隔离时, 命令调用最大的并发数
-#          semaphore:
-#            maxConcurrentRequests: 10
-#      #使用信号量隔离时, 命令fallback调用最大的并发数
-#      fallback:
-#        isolation:
-#          semaphore:
-#            maxConcurrentRequests: 10
-#      # === === === == 熔断器 === === === ==
-#      circuitBreaker:
-#        # 熔断器在整个统计时间内是否开启的阀值, 默认20个请求
-#        requestVolumeThreshold: 8
-#        # 熔断器默认工作时间, 默认: 5 秒
-#        sleepWindowInMilliseconds: 5
-#        # 默认: 50%, 当出错率超过50% 后熔断器启动
-#        errorThresholdPercentage: 50
-#        # 是否强制开启熔断器阻断所有请求, 默认: false, 不开启
-#        forceOpen: false
-#        # 是否允许熔断器忽略错误, 默认false, 不开启
-#        forceClosed: false
-#  # === === === == 线程池 === === === ==
-#  threadpool:
-#    default:
-#      # 配置线程池大小, 默认值10个
-#      coreSize: 10
-#      # 配置队列长度, 默认-1使用SynchronousQueue,其他值则使用LinkedBlockingQueue:不可动态修改:
-#      maxQueueSize: -1
-#      # 队列拒绝的阈值,可通过修改这个变量动态修改允许排队的长度: maxQueueSize=-1时不适用:
-#      queueSizeRejectionThreshold: 5
-#      # 线程生存时间, 默认1分钟
-#      keepAliveTimeMinutes: 1
+hystrix:
+  # === === === == 默认Command === === === ==
+  command:
+    default:
+      execution:
+        isolation:
+          # 调用隔离方式, 默认: 采用线程隔离, ExecutionIsolationStrategy:THREAD
+          strategy: THREAD
+          # 调用超时时间, 默认: 5 秒
+          thread:
+            timeoutInMilliseconds: 8000
+          # 使用信号量隔离时, 命令调用最大的并发数
+          semaphore:
+            maxConcurrentRequests: 10
+      #使用信号量隔离时, 命令fallback调用最大的并发数
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 10
+      # === === === == 熔断器 === === === ==
+      circuitBreaker:
+        # 熔断器在整个统计时间内是否开启的阀值, 默认20个请求
+        requestVolumeThreshold: 8
+        # 熔断器默认工作时间, 默认: 5 秒
+        sleepWindowInMilliseconds: 5
+        # 默认: 50%, 当出错率超过50% 后熔断器启动
+        errorThresholdPercentage: 50
+        # 是否强制开启熔断器阻断所有请求, 默认: false, 不开启
+        forceOpen: false
+        # 是否允许熔断器忽略错误, 默认false, 不开启
+        forceClosed: false
+  # === === === == 线程池 === === === ==
+  threadpool:
+    default:
+      # 配置线程池大小, 默认值10个
+      coreSize: 10
+      # 配置队列长度, 默认-1使用SynchronousQueue,其他值则使用LinkedBlockingQueue:不可动态修改:
+      maxQueueSize: -1
+      # 队列拒绝的阈值,可通过修改这个变量动态修改允许排队的长度: maxQueueSize=-1时不适用:
+      queueSizeRejectionThreshold: 5
+      # 线程生存时间, 默认1分钟
+      keepAliveTimeMinutes: 1
+
+#
+#mybatis-plus:
+#  config-location: classpath:/mapper/BayMapper.xml
 
 #日志配置
 logging:

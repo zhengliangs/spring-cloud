@@ -115,7 +115,7 @@ public class AppController {
     public String getFeignHystrix(){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

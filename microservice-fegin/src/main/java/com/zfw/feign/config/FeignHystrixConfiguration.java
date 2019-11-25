@@ -1,4 +1,4 @@
-package com.zfw.feign.hystrix;
+package com.zfw.feign.config;
 
 import feign.Feign;
 import org.springframework.context.annotation.Bean;
