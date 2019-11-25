@@ -1,4 +1,4 @@
-package com.zfw.feign;
+package com.zfw.feign.util;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;

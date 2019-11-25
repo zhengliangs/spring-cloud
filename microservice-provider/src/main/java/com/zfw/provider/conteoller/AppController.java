@@ -115,10 +115,10 @@ public class AppController {
     public String getFeignHystrix(){
         log.debug("************接受到请求*************");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(6000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "hello  ,this is getFeignHystrix";
+        return "hello ,this is getFeignHystrix";
     }
 }
