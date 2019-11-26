@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class FeignHystrixConfiguration {
 
-    @Bean
-    @Scope("prototype")
-    public Feign.Builder feignBuilder() {
-        return Feign.builder();
-    }
+//    @Bean
+//    @Scope("prototype")
+//    public Feign.Builder feignBuilder() {
+//        return Feign.builder();
+//    }
 }
