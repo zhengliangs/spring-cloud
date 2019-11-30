@@ -36,11 +36,6 @@ eureka:
 #日志配置
 logging:
   config: classpath:logback-boot.xml
-  level:
-    com:
-      zfw:
-        provider:
-          conteoller: debug
 
 #test:
 #  name: "lisi"

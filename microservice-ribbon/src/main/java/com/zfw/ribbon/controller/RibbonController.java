@@ -2,6 +2,7 @@ package com.zfw.ribbon.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
  * @description
  * @date 2019/11/15 15:52
  */
+@Slf4j
 @DefaultProperties
 @RestController
 public class RibbonController {
@@ -31,6 +33,7 @@ public class RibbonController {
      */
     @GetMapping("/getRibbonBalancer")
     public String getRibbonBalancer(String name){
+        log.info("      来了      ");
         return restTemplate.getForObject("http://provider-service/appController/getRibbonBalancer?name="+name, String.class);
     }
 
@@ -44,6 +47,11 @@ public class RibbonController {
      */
     @GetMapping("/getRibbonTimeout")
     public String getRibbonTimeout(){
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return restTemplate.getForObject("http://provider-service/appController/getRibbonTimeout", String.class);
     }
 

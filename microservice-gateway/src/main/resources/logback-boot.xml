@@ -3,8 +3,8 @@
 
     <!-- <property name="log_dir" value="${catalina.base}/logs" /> -->
     <property name="logPath" value="./logs/gateway" />
-    <property name="logFileName" value="gateway"></property>
-    <property name="logLevel" value="info"/>
+    <property name="logFileName" value="gateway"/>
+    <property name="logLevel" value="trace"/>
     <property name="maxHistory" value="90"/>
     <property name="maxFileSize" value="20MB"/>
 
