@@ -34,12 +34,12 @@ spring:
             #剥离请求路径 例如 http://ip:port/ribbon/RIBBON-SERVICE/getRibbonBalancer   ==>  http://ip:port/RIBBON-SERVICE/getRibbonBalancer
             - StripPrefix=1
             #指定自定义的过滤器
-            - TokenAuthenticationFilter
-          #熔断降级
+#            - TokenAuthenticationFilter
+            #熔断降级
             - name: Hystrix
               args:
-                name: default
-                fallbackUri: 'forward:/defaultfallback'
+                name: authHystrixCommand
+                fallbackUri: 'forward:/hystrixTimeout'
       loadbalancer:
         use404: true
 
@@ -51,8 +51,14 @@ hystrix:
         isolation:
           strategy: SEMAPHORE
           thread:
+            timeoutInMilliseconds: 1000
+    authHystrixCommand:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
             timeoutInMilliseconds: 3000
-  shareSecurityContext: true
+#  shareSecurityContext: true
 
 # 暴露监控端点
 management:

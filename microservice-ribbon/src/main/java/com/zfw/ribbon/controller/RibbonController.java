@@ -33,7 +33,12 @@ public class RibbonController {
      */
     @GetMapping("/getRibbonBalancer")
     public String getRibbonBalancer(String name){
-        log.info("      来了      ");
+        log.info("      接收到请求      ");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return restTemplate.getForObject("http://provider-service/appController/getRibbonBalancer?name="+name, String.class);
     }
 
