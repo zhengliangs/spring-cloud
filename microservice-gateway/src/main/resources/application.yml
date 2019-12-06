@@ -10,8 +10,6 @@ eureka:
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
 
 spring:
-  application:
-    name: gateway-service
   cloud:
     gateway:
       discovery:
@@ -33,15 +31,27 @@ spring:
           filters:
             #剥离请求路径 例如 http://ip:port/ribbon/RIBBON-SERVICE/getRibbonBalancer   ==>  http://ip:port/RIBBON-SERVICE/getRibbonBalancer
             - StripPrefix=1
-            #指定自定义的过滤器
-#            - TokenAuthenticationFilter
             #熔断降级
             - name: Hystrix
               args:
                 name: authHystrixCommand
                 fallbackUri: 'forward:/hystrixTimeout'
-      loadbalancer:
-        use404: true
+            #限流
+            - name: RequestRateLimiter
+              args:
+                # 使用SpEL名称引用Bean，与上面新建的RateLimiterConfig类中的bean的name相同
+                key-resolver: '#{@apiKeyResolver}'
+                # 每秒最大访问次数  令牌桶每秒填充平均速率
+                redis-rate-limiter.replenishRate: 1
+                # 令牌桶最大容量
+                redis-rate-limiter.burstCapacity: 2
+  application:
+    name: gateway-service
+  redis:
+    host: 192.168.1.6
+    port: 6379
+    database: 0
+    password: 123456
 
 # hystrix 信号量隔离，3秒后自动超时
 hystrix:
@@ -57,8 +67,7 @@ hystrix:
         isolation:
           strategy: SEMAPHORE
           thread:
-            timeoutInMilliseconds: 3000
-#  shareSecurityContext: true
+            timeoutInMilliseconds: 5000
 
 # 暴露监控端点
 management:

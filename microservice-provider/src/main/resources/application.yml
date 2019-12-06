@@ -30,7 +30,7 @@ eureka:
     #10秒没有续约，Server会认为该服务宕机，会从服务列表剔除
     lease-expiration-duration-in-seconds: 90
     #服务续约时间单位：秒，默认30秒
-    lease-renewal-interval-in-seconds: 5
+    lease-renewal-interval-in-seconds: 30
 
 
 #日志配置

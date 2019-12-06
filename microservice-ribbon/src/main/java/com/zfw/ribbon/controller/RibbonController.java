@@ -24,7 +24,7 @@ public class RibbonController {
 
     @GetMapping("/getProductMsg")
     public String getProductMsg(){
-        return restTemplate.getForObject("http://localhost:8764/appController/getProductMsg", String.class);
+        return restTemplate.getForObject("http://provider-service/appController/getProductMsg", String.class);
     }
 
     /**
@@ -33,12 +33,6 @@ public class RibbonController {
      */
     @GetMapping("/getRibbonBalancer")
     public String getRibbonBalancer(String name){
-        log.info("      接收到请求      ");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return restTemplate.getForObject("http://provider-service/appController/getRibbonBalancer?name="+name, String.class);
     }
 
@@ -52,11 +46,12 @@ public class RibbonController {
      */
     @GetMapping("/getRibbonTimeout")
     public String getRibbonTimeout(){
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        log.info("      ribbon   接收到请求      ");
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return restTemplate.getForObject("http://provider-service/appController/getRibbonTimeout", String.class);
     }
 

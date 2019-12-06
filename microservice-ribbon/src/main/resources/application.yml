@@ -26,7 +26,7 @@ provider-service:
     #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
     #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
     # 同一实例最大重试次数，不包括首次调用
-    MaxAutoRetries: 1
+    MaxAutoRetries: 0
     # 重试其他实例的最大重试次数，不包括首次所选的server
     MaxAutoRetriesNextServer: 2
     # 是否所有操作都进行重试

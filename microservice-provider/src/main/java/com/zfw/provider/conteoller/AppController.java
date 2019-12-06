@@ -46,7 +46,7 @@ public class AppController {
      */
     @GetMapping("/getRibbonTimeout")
     public String getRibbonTimeout(){
-        log.debug("************接受到请求*************");
+        log.info("************接受到请求*************");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -63,7 +63,7 @@ public class AppController {
      */
     @GetMapping("/getRibbonHystrix")
     public String getRibbonHystrix(){
-        log.debug("************接受到请求*************");
+        log.info("************接受到请求*************");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -96,7 +96,7 @@ public class AppController {
      */
     @GetMapping("/getFeignTimeout")
     public String getFeignTimeout(){
-        log.debug("************接受到请求*************");
+        log.info("************接受到请求*************");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -113,7 +113,7 @@ public class AppController {
      */
     @GetMapping("/getFeignHystrix")
     public String getFeignHystrix(){
-        log.debug("************接受到请求*************");
+        log.info("************接受到请求*************");
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
