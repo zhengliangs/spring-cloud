@@ -5,7 +5,7 @@
     <property name="logPath" value="./logs/gateway" />
     <property name="logFileName" value="gateway"/>
     <!--<property name="logLevel" value="trace"/>-->
-    <property name="logLevel" value="debug"/>
+    <property name="logLevel" value="info"/>
     <property name="maxHistory" value="90"/>
     <property name="maxFileSize" value="20MB"/>
 

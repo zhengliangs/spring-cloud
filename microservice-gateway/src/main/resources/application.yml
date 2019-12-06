@@ -34,7 +34,7 @@ spring:
             #熔断降级
             - name: Hystrix
               args:
-                name: authHystrixCommand
+                name: ribbonHystrixCommand
                 fallbackUri: 'forward:/hystrixTimeout'
             #限流
             - name: RequestRateLimiter
@@ -48,26 +48,30 @@ spring:
   application:
     name: gateway-service
   redis:
-    host: 192.168.1.6
-    port: 6379
+#    host: 192.168.1.6
+#    port: 6379
+    host: 192.168.216.198
+    port: 63990
     database: 0
     password: 123456
 
 # hystrix 信号量隔离，3秒后自动超时
 hystrix:
   command:
+    #默认超时配置
     default:
       execution:
         isolation:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 1000
-    authHystrixCommand:
+    #单个服务超时配置
+    ribbonHystrixCommand:
       execution:
         isolation:
           strategy: SEMAPHORE
           thread:
-            timeoutInMilliseconds: 5000
+            timeoutInMilliseconds: 10000
 
 # 暴露监控端点
 management:
