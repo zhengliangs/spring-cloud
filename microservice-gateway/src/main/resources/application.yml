@@ -31,6 +31,23 @@ spring:
           filters:
             #剥离请求路径 例如 http://ip:port/ribbon/RIBBON-SERVICE/getRibbonBalancer   ==>  http://ip:port/RIBBON-SERVICE/getRibbonBalancer
             - StripPrefix=1
+#            - TokenAuthenticationFilter
+            - name: Retry
+              args:
+                #重试次数，默认值是3次
+                retries: 2
+                #状态码配置（分段），符合的某段状态码才会进行重试逻辑，默认值是SERVER_ERROR，值是5，也就是5XX(5开头的状态码)，共有5个值：
+                series:
+                  - SERVER_ERROR
+                #状态码配置，和series不同的是这边是具体状态码的配置，取值请参考：org.springframework.http.HttpStatus
+                statuses:
+                  - OK
+                #定哪些方法的请求需要进行重试逻辑，默认值是GET方法，取值如下：
+                methods:
+                  - GET
+                #指定哪些异常需要进行重试逻辑，默认值是java.io.IOException
+                exceptions:
+                  - java.io.IOException
             #熔断降级
             - name: Hystrix
               args:
@@ -65,7 +82,7 @@ hystrix:
           strategy: SEMAPHORE
           thread:
             timeoutInMilliseconds: 1000
-    #单个服务超时配置
+    #指定服务超时配置
     ribbonHystrixCommand:
       execution:
         isolation:

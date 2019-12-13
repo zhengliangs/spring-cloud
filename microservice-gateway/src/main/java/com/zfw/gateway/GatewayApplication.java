@@ -18,7 +18,6 @@ import reactor.core.publisher.Mono;
 
 @EnableEurekaClient
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.zfw.gateway", "org.springframework.cloud.gateway.filter.factory.rewrite" })
 public class GatewayApplication {
 
     public static void main(String[] args) {

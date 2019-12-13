@@ -32,7 +32,6 @@ public class TokenAuthenticationFilter extends AbstractGatewayFilterFactory {
             ServerHttpRequest.Builder mutate = request.mutate();
             ServerHttpResponse response = exchange.getResponse();
             try {
-                //String token = exchange.getRequest().getQueryParams().getFirst("authToken");
                 //1.获取header中的Authorization
                 String header = request.getHeaders().getFirst("Authorization");
                 if (header == null || !header.startsWith(Bearer_)) {

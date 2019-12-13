@@ -18,8 +18,8 @@
         <module>microservice-gateway</module>
         <module>microservice-provider</module>
         <module>microservice-fegin</module>
-        <module>microservice-hystrix-dashboard</module>
         <module>microservice-ribbon</module>
+        <module>microservice-hystrix-dashboard</module>
     </modules>
     <!--<packaging>pom</packaging>-->
 
