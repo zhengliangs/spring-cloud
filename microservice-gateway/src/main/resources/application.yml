@@ -13,10 +13,10 @@ spring:
   application:
     name: gateway-service
   redis:
-    #    host: 192.168.1.6
-    #    port: 6379
-    host: 192.168.216.198
-    port: 63990
+    host: 192.168.1.6
+    port: 6379
+#    host: 192.168.216.198
+#    port: 63990
     database: 0
     password: 123456
   cloud:

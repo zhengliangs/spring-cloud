@@ -18,6 +18,11 @@ import java.util.Map;
 @RestController
 public class GatewayController {
 
+    @GetMapping("/getInfo")
+    public String getInfo(String name){
+        return "hello! " + name;
+    }
+
     /**
      * 熔断降级
      * @param name

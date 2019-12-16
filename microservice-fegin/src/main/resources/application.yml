@@ -5,9 +5,10 @@ spring:
   ########-spring datasource-########
   datasource:
     #账号配置
-    url: jdbc:mysql://192.168.216.198:3309/reefala_hero?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+#    url: jdbc:mysql://192.168.216.198:3309/reefala_hero?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.1.6:3306/zhengt?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
-    password: 123456
+    password: zhengliang
     driver-class-name: com.mysql.cj.jdbc.Driver
 
     #hikari数据库连接池

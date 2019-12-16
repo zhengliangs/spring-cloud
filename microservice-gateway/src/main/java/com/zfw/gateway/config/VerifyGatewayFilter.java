@@ -28,7 +28,11 @@ public class VerifyGatewayFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        String raw = toRaw(exchange.getAttribute(CACHE_REQUEST_BODY_OBJECT_KEY));
+        Object cacheBody = exchange.getAttribute(CACHE_REQUEST_BODY_OBJECT_KEY);
+        if(cacheBody == null){
+            return chain.filter(exchange);
+        }
+        String raw = toRaw((Flux<DataBuffer>)cacheBody);
         log.info(raw);
         return chain.filter(exchange);
     }

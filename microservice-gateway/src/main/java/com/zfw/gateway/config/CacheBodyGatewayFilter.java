@@ -30,33 +30,23 @@ public class CacheBodyGatewayFilter implements Ordered, GlobalFilter {
         if (exchange.getRequest().getHeaders().getContentType() == null) {
             return chain.filter(exchange);
         } else {
-            ServerHttpRequest request= exchange.getRequest();
-            String method = request.getMethodValue();
-            if ("POST".equals(method)) {
-                return DataBufferUtils.join(exchange.getRequest().getBody())
-                        .flatMap(dataBuffer -> {
-                            DataBufferUtils.retain(dataBuffer);
-                            Flux<DataBuffer> cachedFlux = Flux
-                                    .defer(() -> Flux.just(dataBuffer.slice(0, dataBuffer.readableByteCount())));
-                            ServerHttpRequest mutatedRequest = new ServerHttpRequestDecorator(
-                                    exchange.getRequest()) {
-                                @Override
-                                public Flux<DataBuffer> getBody() {
-                                    return cachedFlux;
-                                }
+            return DataBufferUtils.join(exchange.getRequest().getBody())
+                    .flatMap(dataBuffer -> {
+                        DataBufferUtils.retain(dataBuffer);
+                        Flux<DataBuffer> cachedFlux = Flux
+                                .defer(() -> Flux.just(dataBuffer.slice(0, dataBuffer.readableByteCount())));
+                        ServerHttpRequest mutatedRequest = new ServerHttpRequestDecorator(
+                                exchange.getRequest()) {
+                            @Override
+                            public Flux<DataBuffer> getBody() {
+                                return cachedFlux;
+                            }
 
-                            };
-                            exchange.getAttributes().put(CACHE_REQUEST_BODY_OBJECT_KEY, cachedFlux);
+                        };
+                        exchange.getAttributes().put(CACHE_REQUEST_BODY_OBJECT_KEY, cachedFlux);
 
-                            return chain.filter(exchange.mutate().request(mutatedRequest).build());
-                        });
-            }else if ("GET".equals(method)) {
-                Map requestQueryParams = request.getQueryParams();
-                //TODO 得到Get请求的请求参数后，做你想做的事
-
-                return chain.filter(exchange);
-            }
-            return chain.filter(exchange);
+                        return chain.filter(exchange.mutate().request(mutatedRequest).build());
+                    });
         }
     }
 
