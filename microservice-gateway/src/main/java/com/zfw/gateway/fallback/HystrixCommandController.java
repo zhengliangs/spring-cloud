@@ -24,8 +24,8 @@ public class HystrixCommandController {
      * @exception
      * @version  1.0
      */
-    @RequestMapping("/hystrixTimeout")
-    public Map<String,String> hystrixTimeout(){
+    @RequestMapping("/fallbackCommand")
+    public Map<String,String> fallbackCommand(){
         Map<String,String> map = new HashMap<>();
         map.put("code","-1");
         map.put("message","服务异常");

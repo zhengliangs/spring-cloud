@@ -22,11 +22,9 @@ import java.util.Map;
  * @author hero良
  * @className RequestGlobalFilter
  * @description
- *
- * @date 2019/11/29 16:28
  */
 @Slf4j
-@Component
+//@Component
 public class RequestGlobalFilter implements GlobalFilter, Ordered {
 
     /**
@@ -38,11 +36,9 @@ public class RequestGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request= exchange.getRequest();
-
         String method = request.getMethodValue();
-        String contentType = request.getHeaders().getFirst("Content-Type");
 
-        if ("POST".equals(method) && !contentType.startsWith("multipart/form-data")) {
+        if ("POST".equals(method)) {
             return DataBufferUtils.join(exchange.getRequest().getBody())
                     .flatMap(dataBuffer -> {
                         byte[] bytes = new byte[dataBuffer.readableByteCount()];

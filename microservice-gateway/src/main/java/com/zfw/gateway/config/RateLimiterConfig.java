@@ -21,9 +21,14 @@ public class RateLimiterConfig{
         return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
 
-    @Bean
-    @Primary//如果有多个限流策略需要标识以为主
-    KeyResolver apiKeyResolver() {
-        return exchange -> Mono.just(exchange.getRequest().getPath().value());
-    }
+//    @Bean
+//    @Primary//如果有多个限流策略需要标识以为主
+//    KeyResolver apiKeyResolver() {
+//        return exchange -> Mono.just(exchange.getRequest().getPath().value());
+//    }
+//
+//    @Bean
+//    public KeyResolver userKeyResolver() {
+//        return exchange -> Mono.just(exchange.getRequest().getQueryParams().getFirst("userId"));
+//    }
 }
