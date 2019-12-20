@@ -9,7 +9,10 @@
     </parent>
 
     <artifactId>microservice-provider</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <name>microservice-provider</name>
+    <description>服务提供者</description>
+
 
     <properties>
         <java.version>1.8</java.version>

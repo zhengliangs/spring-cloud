@@ -10,6 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>microservice-ribbon</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>microservice-ribbon</name>
+    <description>ribbon负载均衡</description>
 
     <dependencies>
 
