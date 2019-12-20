@@ -20,6 +20,7 @@
         <module>microservice-fegin</module>
         <module>microservice-ribbon</module>
         <module>microservice-hystrix-dashboard</module>
+        <module>microservice-admin</module>
     </modules>
     <!--<packaging>pom</packaging>-->
 
