@@ -1,0 +1,62 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: admin-service
+  #监控页面的用户名/密码
+  security:
+    user:
+      name: zhengliang
+      password: zhengliang
+  #邮箱报警  --当已注册的客户端的状态从 UP 变为 OFFLINE 或其他状态
+  mail:
+    #端口
+    host: smtp.126.com
+    username: zhengliang166@126.com
+    #授权码 不知道怎么搞可以百度
+    password: zfw123654
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  boot:
+    admin:
+      notify:
+        mail:
+          #从那里发
+          from: zhengliang166@126.com
+          #发到哪里
+          to: zhengliangliang666@126.com
+          #配置是否启用邮件通知 false是不起用
+          enabled: true
+          #忽略的服务状态
+          ignore-changes: UNKNOWN:UP,UNKNOWN:OFFLINE,OFFLINE:UP
+          template:
+
+########-eureka-########
+eureka:
+  client:
+    service-url:
+      #单机版
+      defaultZone: http://eureka1:8761/eureka/
+      #集群模式
+#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+  instance:
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+
+# 2.0开始，actuator默认不开放，所以要设置为开放
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #暴露所有的端点我们可以看到更多应用相关信息
+  endpoint:
+    health:
+      show-details: ALWAYS  #health endpoint是否必须显示全部细节

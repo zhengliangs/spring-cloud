@@ -1,31 +1,15 @@
 spring:
   application:
     name: feign-service
+  #链路追踪
   zipkin:
     base-url: http://localhost:9411/
   sleuth:
     sampler:
       probability: 1.0
-
-  ########-spring datasource-########
-  datasource:
-    #账号配置
-#    url: jdbc:mysql://192.168.216.198:3309/reefala_hero?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    url: jdbc:mysql://192.168.1.6:3306/zhengt?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
-    username: root
-    password: zhengliang
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-    #hikari数据库连接池
-    hikari:
-      pool-name: Retail_HikariCP
-      minimum-idle: 5 #最小空闲连接数量
-      idle-timeout: 180000 #空闲连接存活最大时间，默认600000（10分钟）
-      maximum-pool-size: 10 #连接池最大连接数，默认是10
-      auto-commit: true  #此属性控制从池返回的连接的默认自动提交行为,默认值：true
-      max-lifetime: 1800000 #此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
-      connection-timeout: 30000 #数据库连接超时时间,默认30秒，即30000
-      connection-test-query: SELECT 1
+  #引入配置
+  profiles:
+    include: resource
 
 server:
   port: 8767
@@ -38,6 +22,8 @@ eureka:
       defaultZone: http://eureka1:8761/eureka/
       #集群模式
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+  instance:
+    prefer-ip-address: true
 
 ########-ribbon-########
 #重试：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
@@ -118,8 +104,17 @@ hystrix:
 #mybatis-plus:
 #  config-location: classpath:/mapper/BayMapper.xml
 
+# 2.0开始，actuator默认不开放，所以要设置为开放
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #暴露所有的端点我们可以看到更多应用相关信息
+  endpoint:
+    health:
+      show-details: ALWAYS  #health endpoint是否必须显示全部细节
+
 #日志配置
 logging:
+  file: ./logs/feign/output.log
   config: classpath:logback-boot.xml
-  level:
-    com.zfw.consumer: debug

@@ -25,8 +25,19 @@ eureka:
     # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）
     eviction-interval-timer-in-ms: 10000
 
+# 2.0开始，actuator默认不开放，所以要设置为开放
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #暴露所有的端点我们可以看到更多应用相关信息
+  endpoint:
+    health:
+      show-details: ALWAYS  #health endpoint是否必须显示全部细节
+
 #日志配置
 logging:
+  file:
   config: classpath:logback-boot.xml
   level:
     com.zfw.eurekaserver.Listener: debug

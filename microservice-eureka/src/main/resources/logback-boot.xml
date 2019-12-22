@@ -52,13 +52,13 @@
         </encoder>
     </appender>
 
-    <root >
+    <root>
         <!-- 打印debug级别日志及以上级别日志 -->
-        <level value="${logLevel}" />
+        <level value="${logLevel}"/>
         <!-- 控制台输出 -->
-        <appender-ref ref="console" />
+        <appender-ref ref="console"/>
         <!-- 文件输出 -->
-        <appender-ref ref="INFO" />
-        <appender-ref ref="ERROR" />
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="ERROR"/>
     </root>
 </configuration>
