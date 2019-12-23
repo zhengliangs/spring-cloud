@@ -50,6 +50,10 @@ eureka:
     metadata-map:
       user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
+    #服务以ip注册
+    hostname: 192.168.216.156
+    prefer-ip-address: true
+    ip-address: ${eureka.instance.hostname}:${server.port}
 
 # 2.0开始，actuator默认不开放，所以要设置为开放
 management:

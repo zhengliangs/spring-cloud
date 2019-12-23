@@ -1,6 +1,7 @@
 spring:
   application:
     name: provider-service
+  #链路追踪
   zipkin:
     base-url: http://localhost:9411/
   sleuth:
@@ -30,19 +31,16 @@ eureka:
       #集群版
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
-    #服务以ip注册
-#    prefer-ip-address: false
     #10秒没有续约，Server会认为该服务宕机，会从服务列表剔除
     lease-expiration-duration-in-seconds: 90
     #服务续约时间单位：秒，默认30秒
     lease-renewal-interval-in-seconds: 30
+    #服务以ip注册
+    hostname: 192.168.216.156
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.hostname}:${server.port}
 
 
 #日志配置
 logging:
   config: classpath:logback-boot.xml
-
-#test:
-#  name: "lisi"
-#  path: "www.baidu.com"
-#  index: 5

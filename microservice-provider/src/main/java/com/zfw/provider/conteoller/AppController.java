@@ -1,6 +1,7 @@
 package com.zfw.provider.conteoller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/appController")
 public class AppController {
+
+    @Value("${server.port}")
+    private int port;
 
     /**
      * @description
@@ -35,7 +39,7 @@ public class AppController {
      */
     @GetMapping("/getRibbonBalancer")
     public String getRibbonBalancer(String name){
-        return "hello !" + name+" , this is 8765";
+        return "hello !" + name+" , this is "+port;
     }
 
     /**
@@ -85,7 +89,7 @@ public class AppController {
      */
     @GetMapping("/getFeignBalancer")
     public String getFeignBalancer(String name){
-        return "hello " + name+" , this is 8764";
+        return "hello " + name+" , this is "+port;
     }
 
     /**
