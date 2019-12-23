@@ -1,0 +1,7 @@
+下载地址：
+    https://dl.bintray.com/openzipkin/maven/io/zipkin/java/zipkin-server/
+
+https://blog.51cto.com/zero01/2173394
+
+启动命令
+    --logging.level.zipkin2=INFO   指定日志级别
