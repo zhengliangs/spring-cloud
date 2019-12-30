@@ -7,6 +7,10 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
+  security:
+    user:
+      name: zhengll
+      password: 123456
 
   #jackson
   jackson:
@@ -27,7 +31,7 @@ eureka:
     registry-fetch-interval-seconds: 30
     service-url:
       #单机版 同样适合集群版，但是8761端口挂掉，则新的服务不能再注册
-      defaultZone: http://eureka1:8761/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:8761/eureka/
       #集群版
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
@@ -40,6 +44,15 @@ eureka:
     prefer-ip-address: true
     instance-id: ${eureka.instance.hostname}:${server.port}
 
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
 
 #日志配置
 logging:

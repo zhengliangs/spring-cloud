@@ -2,6 +2,10 @@
 spring:
   application:
     name: eureka-erver
+  security:
+    user:
+      password: 123456
+      name: zhengll
 
 # eureka 默认端口为：8761
 server:
@@ -10,7 +14,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:${server.port}/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:${server.port}/eureka/
     #是否注册到eureka（eureka本身是不需要再注册到自己的）单机版关闭注册，本身就是注册中心
     register-with-eureka: false
     #是否从注册中心获取注册信息

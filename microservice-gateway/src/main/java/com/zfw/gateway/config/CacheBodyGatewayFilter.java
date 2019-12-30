@@ -20,7 +20,7 @@ import java.util.Map;
  * @description
  * @date 2019/12/12 16:35
  */
-@Component
+//@Component
 public class CacheBodyGatewayFilter implements Ordered, GlobalFilter {
 
     public static final String CACHE_REQUEST_BODY_OBJECT_KEY = "cachedRequestBodyObject";

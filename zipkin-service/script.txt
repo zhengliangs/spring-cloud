@@ -5,3 +5,4 @@ https://blog.51cto.com/zero01/2173394
 
 启动命令
     --logging.level.zipkin2=INFO   指定日志级别
+    --STORAGE_TYPE=mysql --MYSQL_DB=zipkin --MYSQL_USER=root --MYSQL_PASS=root --MYSQL_HOST=localhost --MYSQL_TCP_PORT=3306  链路信息保存到

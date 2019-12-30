@@ -21,7 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @date 2019/12/12 16:36
  */
 @Slf4j
-@Component
+//@Component
 public class VerifyGatewayFilter implements GlobalFilter, Ordered {
 
     public static final String CACHE_REQUEST_BODY_OBJECT_KEY = "cachedRequestBodyObject";

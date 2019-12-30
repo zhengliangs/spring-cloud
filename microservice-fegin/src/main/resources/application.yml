@@ -10,6 +10,10 @@ spring:
   #引入配置
   profiles:
     include: resource
+  security:
+    user:
+      name: zhengll
+      password: 123456
 
 server:
   port: 8767
@@ -19,15 +23,14 @@ eureka:
   client:
     service-url:
       #单机版
-      defaultZone: http://eureka1:8761/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:8761/eureka/
       #集群模式
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
     #服务以ip注册
-    hostname: 192.168.216.156
+    hostname: 192.168.80.1
     prefer-ip-address: true
     instance-id: ${eureka.instance.hostname}:${server.port}
-#    prefer-ip-address: true
 
 ########-ribbon-########
 #重试：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。

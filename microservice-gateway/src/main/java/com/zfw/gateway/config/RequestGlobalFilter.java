@@ -24,7 +24,7 @@ import java.util.Map;
  * @description
  */
 @Slf4j
-//@Component
+@Component
 public class RequestGlobalFilter implements GlobalFilter, Ordered {
 
     /**

@@ -4,17 +4,17 @@ server:
 spring:
   application:
     name: admin-service
-  #¼à¿ØÒ³ÃæµÄÓÃ»§Ãû/ÃÜÂë
+  #ç›‘æ§é¡µé¢çš„ç”¨æˆ·å/å¯†ç 
   security:
     user:
-      name: zhengliang
-      password: zhengliang
-  #ÓÊÏä±¨¾¯  --µ±ÒÑ×¢²áµÄ¿Í»§¶ËµÄ×´Ì¬´Ó UP ±äÎª OFFLINE »òÆäËû×´Ì¬
+      name: zhengll
+      password: 123456
+  #é‚®ç®±æŠ¥è­¦  --å½“å·²æ³¨å†Œçš„å®¢æˆ·ç«¯çš„çŠ¶æ€ä» UP å˜ä¸º OFFLINE æˆ–å…¶ä»–çŠ¶æ€
   mail:
-    #¶Ë¿Ú
+    #ç«¯å£
     host: smtp.126.com
     username: zhengliang166@126.com
-    #ÊÚÈ¨Âë ²»ÖªµÀÔõÃ´¸ã¿ÉÒÔ°Ù¶È
+    #æˆæƒç  ä¸çŸ¥é“æ€ä¹ˆæå¯ä»¥ç™¾åº¦
     password: zfw123654
     properties:
       mail:
@@ -27,13 +27,13 @@ spring:
     admin:
       notify:
         mail:
-          #´ÓÄÇÀï·¢
+          #ä»é‚£é‡Œå‘
           from: zhengliang166@126.com
-          #·¢µ½ÄÄÀï
+          #å‘åˆ°å“ªé‡Œ
           to: zhengliangliang666@126.com
-          #ÅäÖÃÊÇ·ñÆôÓÃÓÊ¼şÍ¨Öª falseÊÇ²»ÆğÓÃ
+          #é…ç½®æ˜¯å¦å¯ç”¨é‚®ä»¶é€šçŸ¥ falseæ˜¯ä¸èµ·ç”¨
           enabled: true
-          #ºöÂÔµÄ·şÎñ×´Ì¬
+          #å¿½ç•¥çš„æœåŠ¡çŠ¶æ€
           ignore-changes: UNKNOWN:UP,UNKNOWN:OFFLINE,OFFLINE:UP
           template:
 
@@ -41,26 +41,26 @@ spring:
 eureka:
   client:
     service-url:
-      #µ¥»ú°æ
-      defaultZone: http://eureka1:8761/eureka/
-      #¼¯ÈºÄ£Ê½
-#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+      #å•æœºç‰ˆ
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:8761/eureka/
+      #é›†ç¾¤æ¨¡å¼
+  #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
     health-check-url-path: /actuator/health
     metadata-map:
       user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
-    #·şÎñÒÔip×¢²á
-    hostname: 192.168.216.156
+    #æœåŠ¡ä»¥ipæ³¨å†Œ
+    hostname: 192.168.80.1
     prefer-ip-address: true
-    ip-address: ${eureka.instance.hostname}:${server.port}
+    instance-id: ${eureka.instance.hostname}:${server.port}
 
-# 2.0¿ªÊ¼£¬actuatorÄ¬ÈÏ²»¿ª·Å£¬ËùÒÔÒªÉèÖÃÎª¿ª·Å
+# 2.0å¼€å§‹ï¼Œactuatoré»˜è®¤ä¸å¼€æ”¾ï¼Œæ‰€ä»¥è¦è®¾ç½®ä¸ºå¼€æ”¾
 management:
   endpoints:
     web:
       exposure:
-        include: "*"  #±©Â¶ËùÓĞµÄ¶ËµãÎÒÃÇ¿ÉÒÔ¿´µ½¸ü¶àÓ¦ÓÃÏà¹ØĞÅÏ¢
+        include: "*"  #æš´éœ²æ‰€æœ‰çš„ç«¯ç‚¹æˆ‘ä»¬å¯ä»¥çœ‹åˆ°æ›´å¤šåº”ç”¨ç›¸å…³ä¿¡æ¯
   endpoint:
     health:
-      show-details: ALWAYS  #health endpointÊÇ·ñ±ØĞëÏÔÊ¾È«²¿Ï¸½Ú
+      show-details: ALWAYS  #health endpointæ˜¯å¦å¿…é¡»æ˜¾ç¤ºå…¨éƒ¨ç»†èŠ‚
