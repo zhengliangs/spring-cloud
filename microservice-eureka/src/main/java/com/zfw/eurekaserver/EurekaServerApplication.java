@@ -15,6 +15,11 @@ public class EurekaServerApplication extends WebSecurityConfigurerAdapter {
         SpringApplication.run(EurekaServerApplication.class, args);
     }
 
+    /**
+     * 集成security
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Configure HttpSecurity as needed (e.g. enable http basic).

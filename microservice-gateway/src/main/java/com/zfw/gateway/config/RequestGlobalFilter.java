@@ -9,12 +9,12 @@ import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 /**
  * 全局过滤器
@@ -67,7 +67,7 @@ public class RequestGlobalFilter implements GlobalFilter, Ordered {
                         return chain.filter(exchange.mutate().request(mutatedRequest).build());
                     });
         } else if ("GET".equals(method)) {
-            Map requestQueryParams = request.getQueryParams();
+            MultiValueMap<String, String> queryParams = request.getQueryParams();
             //TODO 得到Get请求的请求参数后，做你想做的事
 
             return chain.filter(exchange);

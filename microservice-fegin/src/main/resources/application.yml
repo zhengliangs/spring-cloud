@@ -1,34 +1,31 @@
+server:
+  port: 8767
+
 spring:
   application:
     name: feign-service
-  #链路追踪
+  #引入配置
+  profiles:
+    include: resource,hystrix
+  #sleuth链路追踪
   zipkin:
-    base-url: http://localhost:9411/
+    base-url: http://${host-ip}:9411/
+  #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
   sleuth:
     sampler:
       probability: 1.0
-  #引入配置
-  profiles:
-    include: resource
-  security:
-    user:
-      name: zhengll
-      password: 123456
-
-server:
-  port: 8767
 
 ########-eureka-########
 eureka:
   client:
     service-url:
       #单机版
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:8761/eureka/
+      defaultZone: http://${register.name}:${register.password}@127.0.0.1:8761/eureka/
       #集群模式
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
     #服务以ip注册
-    hostname: 192.168.80.1
+    hostname: 127.0.0.1
     prefer-ip-address: true
     instance-id: ${eureka.instance.hostname}:${server.port}
 
@@ -62,51 +59,6 @@ feign:
   hystrix:
     enabled: true
 
-#hystrix超时 > MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) + 1，否则重试没有意义
-#-----------------Hystrix配置-----------------------
-hystrix:
-  # === === === == 默认Command === === === ==
-  command:
-    default:
-      execution:
-        isolation:
-          # 调用隔离方式, 默认: 采用线程隔离, ExecutionIsolationStrategy:THREAD
-          strategy: THREAD
-          # 调用超时时间, 默认: 5 秒
-          thread:
-            timeoutInMilliseconds: 8000
-          # 使用信号量隔离时, 命令调用最大的并发数
-          semaphore:
-            maxConcurrentRequests: 10
-      #使用信号量隔离时, 命令fallback调用最大的并发数
-      fallback:
-        isolation:
-          semaphore:
-            maxConcurrentRequests: 10
-      # === === === == 熔断器 === === === ==
-      circuitBreaker:
-        # 熔断器在整个统计时间内是否开启的阀值, 默认20个请求
-        requestVolumeThreshold: 8
-        # 熔断器默认工作时间, 默认: 5 秒
-        sleepWindowInMilliseconds: 5
-        # 默认: 50%, 当出错率超过50% 后熔断器启动
-        errorThresholdPercentage: 50
-        # 是否强制开启熔断器阻断所有请求, 默认: false, 不开启
-        forceOpen: false
-        # 是否允许熔断器忽略错误, 默认false, 不开启
-        forceClosed: false
-  # === === === == 线程池 === === === ==
-  threadpool:
-    default:
-      # 配置线程池大小, 默认值10个
-      coreSize: 10
-      # 配置队列长度, 默认-1使用SynchronousQueue,其他值则使用LinkedBlockingQueue:不可动态修改:
-      maxQueueSize: -1
-      # 队列拒绝的阈值,可通过修改这个变量动态修改允许排队的长度: maxQueueSize=-1时不适用:
-      queueSizeRejectionThreshold: 5
-      # 线程生存时间, 默认1分钟
-      keepAliveTimeMinutes: 1
-
 #
 #mybatis-plus:
 #  config-location: classpath:/mapper/BayMapper.xml
@@ -125,3 +77,9 @@ management:
 logging:
   file: ./logs/feign/output.log
   config: classpath:logback-boot.xml
+
+register:
+  name: zhengll
+  password: 123456
+
+host-ip: 192.168.216.103
