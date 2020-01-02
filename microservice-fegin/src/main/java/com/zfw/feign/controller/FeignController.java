@@ -26,6 +26,9 @@ public class FeignController {
      */
     @GetMapping("/getFeignBalancer")
     public String getFeignBalancer(String name){
+        if(name.equals("Java")){
+            throw new RuntimeException("故意的");
+        }
         return feignClientService.getFeignBalancer(name);
     }
 

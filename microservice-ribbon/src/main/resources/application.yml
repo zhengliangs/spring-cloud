@@ -109,4 +109,4 @@ register:
   name: zhengll
   password: 123456
 
-host-ip: 192.168.216.103
+host-ip: 127.0.0.1
