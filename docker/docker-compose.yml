@@ -1,0 +1,63 @@
+version: "3.7"
+services:
+  redis:
+    build:
+      context: ./redis
+      dockerfile: Dockerfile
+    image: redis
+    container_name: redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf  "]
+    ports:
+      - 6379:6379
+    volumes:
+      - "/data/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf"
+      - "/data/redis/log:/usr/local/etc/log"
+      - "/data/redis/data:/data"
+    networks:
+      app-net:
+        ipv4_address: 172.10.10.10
+  eureka:
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
+    image: eureka
+    container_name: eureka
+    command: ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-eureka.jar",">>","catalina.out","2>&1","&"]
+    ports:
+      - 8761:8761
+    expose:
+      - 8761
+    volumes:
+      - "/data/microservice/eureka:/logs"
+    networks:
+      app-net:
+        ipv4_address: 172.10.10.11
+    stdin_open: true
+    tty: true
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    image: gateway
+    container_name: gateway
+    ## ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-eureka.jar","--spring.profiles.active=prod",">>","catalina.out","2>&1","&"]
+    command: ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-gateway.jar",">>","catalina.out","2>&1","&"]
+    ports:
+      - 8090:8090
+    expose:
+      - 8090
+    volumes:
+      - "/data/microservice/gateway:/logs"
+    networks:
+      app-net:
+        ipv4_address: 172.10.10.12
+    depends_on:
+      - redis
+      - eureka
+    stdin_open: true
+    tty: true
+networks:
+  app-net:
+    ipam:
+      config:
+        - subnet: 172.10.10.0/24

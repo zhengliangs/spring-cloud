@@ -2,8 +2,8 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
     <!-- <property name="log_dir" value="${catalina.base}/logs" /> -->
-    <property name="logPath" value="./logs/server" />
-    <property name="logFileName" value="server"></property>
+    <property name="logPath" value="/logs/eureka" />
+    <property name="logFileName" value="eureka"></property>
     <property name="logLevel" value="info"/>
     <property name="maxHistory" value="90"/>
     <property name="maxFileSize" value="20MB"/>
