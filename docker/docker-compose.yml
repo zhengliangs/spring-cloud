@@ -58,6 +58,7 @@ services:
     tty: true
 networks:
   app-net:
+    driver: bridge
     ipam:
       config:
         - subnet: 172.10.10.0/24
