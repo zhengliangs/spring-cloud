@@ -11,11 +11,11 @@ spring:
         #自定义 全局唯一路由ID
         - id: feign-service
           #uri以lb://开头（lb代表从注册中心获取服务），后面接的就是你需要转发到的服务名称
-          uri: lb://FEIGN-SERVICE
+          uri: lb://RIBBON-SERVICE
           #谓词
           predicates:
             #匹配路由   http://ip:port/feign/**  的请求
-            - Path=/feign/**
+            - Path=/ribbon/**
           #过滤器
           filters:
             #剥离请求路径 例如 http://ip:port/feign/FEIGN-SERVICE/hello   ==>  http://ip:port/FEIGN-SERVICE/hello
@@ -23,7 +23,7 @@ spring:
             #熔断降级
             - name: Hystrix
               args:
-                name: feignHystrixCommand
+                name: ribbonHystrixCommand
                 fallbackUri: 'forward:/fallbackCommand'
             #限流
             - name: RequestRateLimiter

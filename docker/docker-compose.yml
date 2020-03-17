@@ -4,14 +4,14 @@ services:
     build:
       context: ./redis
       dockerfile: Dockerfile
-    image: redis
+    image: redis:v1.1
     container_name: redis
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf  "]
+    command: ["redis-server", "/usr/local/redis/conf/redis.conf"]
     ports:
       - 6379:6379
     volumes:
-      - "/data/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf"
-      - "/data/redis/log:/usr/local/etc/log"
+      - "/data/redis/conf/redis.conf:/usr/local/redis/conf/redis.conf"
+      - "/data/redis/log:/usr/local/redis/log"
       - "/data/redis/data:/data"
     networks:
       app-net:
@@ -20,7 +20,7 @@ services:
     build:
       context: ./eureka
       dockerfile: Dockerfile
-    image: eureka
+    image: eureka:v1.1
     container_name: eureka
     command: ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-eureka.jar",">>","catalina.out","2>&1","&"]
     ports:
@@ -28,7 +28,7 @@ services:
     expose:
       - 8761
     volumes:
-      - "/data/microservice/eureka:/logs"
+      - "/data/microservice:/logs"
     networks:
       app-net:
         ipv4_address: 172.10.10.11
@@ -38,21 +38,36 @@ services:
     build:
       context: ./gateway
       dockerfile: Dockerfile
-    image: gateway
+    image: gateway:v1.1
     container_name: gateway
-    ## ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-eureka.jar","--spring.profiles.active=prod",">>","catalina.out","2>&1","&"]
-    command: ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-gateway.jar",">>","catalina.out","2>&1","&"]
+    command: ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-gateway.jar","--spring.profiles.active=docker",">>","catalina.out","2>&1","&"]
     ports:
       - 8090:8090
     expose:
       - 8090
     volumes:
-      - "/data/microservice/gateway:/logs"
+      - "/data/microservice:/logs"
     networks:
       app-net:
         ipv4_address: 172.10.10.12
     depends_on:
       - redis
+      - eureka
+    stdin_open: true
+    tty: true
+  ribbon:
+    build:
+      context: ./ribbon
+      dockerfile: Dockerfile
+    image: ribbon:v1.1
+    container_name: ribbon
+    command: ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-ribbon.jar","--spring.profiles.active=docker",">>","catalina.out","2>&1","&"]
+    volumes:
+      - "/data/microservice:/logs"
+    networks:
+      app-net:
+        ipv4_address: 172.10.10.13
+    depends_on:
       - eureka
     stdin_open: true
     tty: true
