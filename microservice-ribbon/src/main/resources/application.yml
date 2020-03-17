@@ -1,30 +1,11 @@
 spring:
   application:
     name: ribbon-service
-  #sleuth链路追踪
-  zipkin:
-    base-url: http://${host-ip}:9411/
-  #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
-  sleuth:
-    sampler:
-      probability: 1.0
+  profiles:
+    active: dev
 
 server:
   port: 8766
-
-#----------------结合eureka使用-------------#
-eureka:
-  client:
-    service-url:
-      #单机版
-      defaultZone: http://${register.name}:${register.password}@127.0.0.1:8761/eureka/
-      #集群模式
-#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
-  instance:
-    #服务以ip注册
-    hostname: 127.0.0.1
-    prefer-ip-address: true
-    instance-id: ${eureka.instance.hostname}:${server.port}
 
 #重试计算公式：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
 provider-service:
@@ -104,9 +85,3 @@ management:
 #日志配置
 logging:
   config: classpath:logback-boot.xml
-
-register:
-  name: zhengll
-  password: 123456
-
-host-ip: 127.0.0.1

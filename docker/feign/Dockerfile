@@ -5,5 +5,4 @@ LABEL maintainer='zhengl<zhengliang166.126.com>'
 #创建目录
 RUN mkdir /home/app
 #将jar包copy到容器中
-COPY microservice-eureka.jar /home/app/
-
+COPY microservice-ribbon.jar /home/app/

@@ -75,4 +75,9 @@ public class RibbonController {
     String getHystrixFall() {
         return "我是回退方法 getRibbonHystrix";
     }
+
+    @GetMapping("/testDocker")
+    public String testDocker(String name){
+        return name;
+    }
 }
