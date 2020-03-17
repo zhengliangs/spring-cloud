@@ -6,4 +6,3 @@ LABEL maintainer='zhengl<zhengliang166.126.com>'
 RUN mkdir /home/app
 #将jar包copy到容器中
 COPY microservice-eureka.jar /home/app/
-

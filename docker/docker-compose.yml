@@ -62,6 +62,8 @@ services:
     image: ribbon:v1.1
     container_name: ribbon
     command: ["nohup","java","-Djava.security.egd=file:/dev/./urandom","-jar","/home/app/microservice-ribbon.jar","--spring.profiles.active=docker",">>","catalina.out","2>&1","&"]
+    expose:
+      - 8766
     volumes:
       - "/data/microservice:/logs"
     networks:

@@ -1,3 +1,17 @@
+spring:
+  zipkin:
+    base-url: http://${host-ip}:9411/
+  #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
+  sleuth:
+    sampler:
+      probability: 1.0
+  #redis限流
+  redis:
+    host: 192.168.1.6
+    port: 6379
+    database: 0
+    password: 123456
+
 eureka:
   client:
     service-url:
@@ -10,26 +24,6 @@ eureka:
     hostname: 127.0.0.1
     prefer-ip-address: true
     instance-id: ${eureka.instance.hostname}:${server.port}
-
-spring:
-  application:
-    name: gateway-service
-  profiles:
-    include: route
-  zipkin:
-    base-url: http://${host-ip}:9411/
-  #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
-  sleuth:
-    sampler:
-      probability: 1.0
-  #redis限流
-  redis:
-    host: 192.168.1.6
-    port: 6379
-#    host: 192.168.216.198
-#    port: 63990
-    database: 0
-    password: 123456
 
 register:
   name: zhengll
