@@ -1,0 +1,7 @@
+使用docker后台运行redis时，需要将配置文件redis.conf中的daemonize设置为no，否则redis启动瞬间会停止。
+
+挂载redis配置文件时时，指定到文件。
+如 /data/redis/conf/redis.conf:/usr/local/redis/conf/redis.conf   启动命令  ["redis-server", "/usr/local/redis/conf/redis.conf"]
+
+挂载log，需要在宿主机建好文件，然后指定文件。如
+logfile "/usr/local/redis/log/redis.log"

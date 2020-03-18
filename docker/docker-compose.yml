@@ -14,7 +14,7 @@ services:
       - "/data/redis/log:/usr/local/redis/log"
       - "/data/redis/data:/data"
     networks:
-      app-net:
+      cloud-net:
         ipv4_address: 172.10.10.10
   eureka:
     build:
@@ -30,7 +30,7 @@ services:
     volumes:
       - "/data/microservice:/logs"
     networks:
-      app-net:
+      cloud-net:
         ipv4_address: 172.10.10.11
     stdin_open: true
     tty: true
@@ -48,7 +48,7 @@ services:
     volumes:
       - "/data/microservice:/logs"
     networks:
-      app-net:
+      cloud-net:
         ipv4_address: 172.10.10.12
     depends_on:
       - redis
@@ -67,14 +67,14 @@ services:
     volumes:
       - "/data/microservice:/logs"
     networks:
-      app-net:
+      cloud-net:
         ipv4_address: 172.10.10.13
     depends_on:
       - eureka
     stdin_open: true
     tty: true
 networks:
-  app-net:
+  cloud-net:
     driver: bridge
     ipam:
       config:
