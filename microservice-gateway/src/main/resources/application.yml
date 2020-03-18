@@ -8,7 +8,6 @@ spring:
     include: route, hystrix
     active: dev
 
-
 # 暴露监控端点
 management:
   endpoints:
