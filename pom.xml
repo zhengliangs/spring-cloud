@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.zfw.springcloud</groupId>
-    <artifactId>springcloud</artifactId>
+    <artifactId>microservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>microservice-eureka</module>
