@@ -1,0 +1,80 @@
+server:
+  port: 33000
+
+spring:
+  application:
+    name: service-server
+  #引入配置
+  profiles:
+    include: hystrix
+  #sleuth链路追踪
+  zipkin:
+    base-url: http://${host-ip}:9411/
+  #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
+  sleuth:
+    sampler:
+      probability: 1.0
+
+########-eureka-########
+eureka:
+  client:
+    service-url:
+      #单机版
+      defaultZone: http://${register.name}:${register.password}@127.0.0.1:31000/eureka/
+      #集群模式
+#      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
+  instance:
+    #服务以ip注册
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.hostname}:${server.port}
+
+########-ribbon-########
+#重试：MaxAutoRetries+MaxAutoRetriesNextServer+(MaxAutoRetries * MaxAutoRetriesNextServer) ，即重试3次 （不包括首次调用）一共产生4次调用。
+provider-service:
+  ribbon:
+    #负载均衡策略
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重
+    #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule #配置规则 最空闲连接策略
+    #请求连接超时时间 单位ms
+    ConnectTimeout: 500
+    #请求处理的超时时间 单位ms
+    ReadTimeout: 2000
+    # 同一实例最大重试次数，不包括首次调用
+    MaxAutoRetries: 0
+    # 重试其他实例的最大重试次数，不包括首次所选的server
+    MaxAutoRetriesNextServer: 2
+    # 是否所有操作都进行重试
+    #当OkToRetryOnAllOperations设置为false时，只会对get请求进行重试。
+    #如果设置为true，便会对所有的请求进行重试，如果是put或post等写操作，
+    #如果服务器接口没做幂等性，会产生不好的结果，所以OkToRetryOnAllOperations慎用。
+    OkToRetryOnAllOperations: false
+
+########-hystrix-########
+#开启断路由
+feign:
+  hystrix:
+    enabled: true
+
+# 2.0开始，actuator默认不开放，所以要设置为开放
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #暴露所有的端点我们可以看到更多应用相关信息
+  endpoint:
+    health:
+      show-details: ALWAYS  #health endpoint是否必须显示全部细节
+
+#日志配置
+logging:
+  config: classpath:logback-boot.xml
+
+register:
+  name: zhengll
+  password: 123456
+
+host-ip: 127.0.0.1

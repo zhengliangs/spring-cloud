@@ -1,0 +1,45 @@
+#单击版配置
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: zhengll
+      password: 123456
+
+# eureka 默认端口为：8761
+server:
+  port: 31000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@127.0.0.1:${server.port}/eureka/
+    #是否注册到eureka（eureka本身是不需要再注册到自己的）单机版关闭注册，本身就是注册中心
+    register-with-eureka: false
+    #是否从注册中心获取注册信息
+    fetch-registry: false
+  instance:
+    #服务失效时间，Eureka多长时间没收到服务的renew操作，就剔除该服务，默认90秒
+    lease-expiration-duration-in-seconds: 15
+  server:
+    # 自我保护模式（缺省为打开）
+    enable-self-preservation: false
+    #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+    # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）
+    eviction-interval-timer-in-ms: 10000
+
+# 2.0开始，actuator默认不开放，所以要设置为开放
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  #暴露所有的端点我们可以看到更多应用相关信息
+  endpoint:
+    health:
+      show-details: ALWAYS  #health endpoint是否必须显示全部细节
+
+#日志配置
+logging:
+  config: classpath:logback-boot.xml
+

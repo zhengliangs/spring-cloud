@@ -1,0 +1,114 @@
+package com.zfw.provider.conteoller;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author hero良
+ * @className HelloController
+ * @description TODO
+ */
+@Slf4j
+@RestController
+@RequestMapping("/appController")
+public class AppController {
+
+    @Value("${server.port}")
+    private int port;
+
+    /**
+     * @description
+     * @author hero良
+     * @return java.lang.String
+     */
+    @GetMapping("/getProductMsg")
+    public String getProductMsg(){
+        return "产品研发成功了！！！";
+    }
+
+    /**
+     * @describe Ribbon负载均衡测试
+     * @author: hero良
+     */
+    @GetMapping("/getRibbonBalancer")
+    public String getRibbonBalancer(String name){
+        return "hello !" + name+" , this is "+port;
+    }
+
+    /**
+     * @describe Ribbon超时重试测试
+     * @author: hero良
+     */
+    @GetMapping("/getRibbonTimeout")
+    public String getRibbonTimeout(){
+        log.info("************接受到请求*************");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "hello";
+    }
+
+    /**
+     * @description Hystrix熔断降级测试
+     * @author hero良
+     */
+    @GetMapping("/getRibbonHystrix")
+    public String getRibbonHystrix(){
+        log.info("************接受到请求*************");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "hello ,this is getRibbonHystrix";
+    }
+
+
+
+    /**********************************************************************************************************************************/
+
+
+    /**
+     * @describe Feign负载均衡测试
+     * @author: hero良
+     */
+    @GetMapping("/getFeignBalancer")
+    public String getFeignBalancer(String name){
+        return "hello " + name+" , this is "+port;
+    }
+
+    /**
+     * @describe Feign超时重试测试
+     * @author: hero良
+     */
+    @GetMapping("/getFeignTimeout")
+    public String getFeignTimeout(){
+        log.info("************接受到请求*************");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "hello ";
+    }
+
+    /**
+     * @description Hystrix熔断降级测试
+     * @author hero良
+     */
+    @GetMapping("/getFeignHystrix")
+    public String getFeignHystrix(){
+        log.info("************接受到请求*************");
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "hello ,this is getFeignHystrix";
+    }
+}

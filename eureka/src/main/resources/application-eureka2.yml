@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: eureka-server
+
+server:
+  port: 31002
+
+eureka:
+  client:
+    service-url:
+      #eureka1 eureka3 对应hosts
+      defaultZone: http://eureka1:8761/eureka/,http://eureka3:8763/eureka/
+    #单机版为false，关闭自我注册功能，集群需要打开自我注册，所有注册中心相互注册
+    register-with-eureka: true
+    #默认为true，会从注册中心获取注册信息缓存到本地，以后只会增量获取，可以搭配disable-delta : false来强制每次全部获取
+    fetch-registry: true
+    #默认开启增量获取更新注册表信息，false则每次会全部获取
+    disable-delta: true
+  instance:
+    hostname: eureka2
+    #服务失效时间，Eureka多长时间没收到服务的renew操作，就剔除该服务，默认90秒
+    lease-expiration-duration-in-seconds: 15
+  server:
+    #关闭自我保护机制，缺省为打开（将失效的服务实例保护起来，不予剔除）
+    enable-self-preservation: false
+    #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+    # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）
+    eviction-interval-timer-in-ms: 10000
