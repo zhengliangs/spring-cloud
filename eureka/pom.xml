@@ -12,10 +12,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>eureka</name>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -23,17 +19,11 @@
         </dependency>
 
         <!--已经废弃，不推荐使用-->
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-eureka-server -->
         <!--<dependency>-->
             <!--<groupId>org.springframework.cloud</groupId>-->
             <!--<artifactId>spring-cloud-starter-eureka-server</artifactId>-->
             <!--<version>1.4.7.RELEASE</version>-->
         <!--</dependency>-->
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
 
         <!--集成security-->
         <dependency>

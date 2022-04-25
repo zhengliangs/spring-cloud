@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
-    <!-- <property name="log_dir" value="${catalina.base}/logs" /> -->
     <property name="logPath" value="/logs/eureka" />
     <property name="logLevel" value="info"/>
     <property name="maxHistory" value="90"/>

@@ -7,7 +7,7 @@ spring:
   profiles:
     include: route, hystrix
   zipkin:
-    base-url: http://${host-ip}:9411/
+    base-url: http://127.0.0.1:9411/
   #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
   sleuth:
     sampler:
@@ -36,8 +36,6 @@ register:
   name: zhengll
   password: 123456
 
-host-ip: 127.0.0.1
-
 eureka-port: 31000
 
 # 暴露监控端点
@@ -49,6 +47,8 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+  server:
+    port: 32003
 
 #日志配置
 logging:
