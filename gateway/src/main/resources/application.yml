@@ -5,7 +5,7 @@ spring:
   application:
     name: gateway-server
   profiles:
-    include: route, hystrix
+    include: route
   zipkin:
     base-url: http://127.0.0.1:9411/
   #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
@@ -23,7 +23,7 @@ eureka:
   client:
     service-url:
       #单机版
-      defaultZone: http://${register.name}:${register.password}@127.0.0.1:${eureka-port}/eureka/
+      defaultZone: http://${register.name}:${register.password}@127.0.0.1:31000/eureka/
       #集群模式
   #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
@@ -32,11 +32,23 @@ eureka:
     prefer-ip-address: true
     instance-id: ${eureka.instance.hostname}:${server.port}
 
-register:
-  name: zhengll
-  password: 123456
-
-eureka-port: 31000
+hystrix:
+  command:
+    #默认超时配置
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+          #超过3秒还没有返回，则进行熔断
+            timeoutInMilliseconds: 3000
+#    #指定服务超时配置
+#    serviceHystrixCommand:
+#      execution:
+#        isolation:
+#          strategy: SEMAPHORE
+#          thread:
+#            timeoutInMilliseconds: 5000
 
 # 暴露监控端点
 management:
@@ -53,4 +65,10 @@ management:
 #日志配置
 logging:
   config: classpath:logback-boot.xml
+
+
+register:
+  name: zhengll
+  password: 123456
+
 

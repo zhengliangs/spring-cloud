@@ -36,8 +36,8 @@ public class HystrixCommandController {
      * @date 2019/12/1 21:47
      * @return java.util.Map<java.lang.String,java.lang.String>
      */
-    @RequestMapping("/ribbonHystrixCommand")
-    public Map<String,String> ribbonHystrixCommand(){
+    @RequestMapping("/hystrixCommand")
+    public Map<String,String> serviceHystrixCommand(){
         Map<String,String> map = new HashMap<>();
         map.put("code","-1");
         map.put("message","服务异常");
