@@ -16,17 +16,20 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class RateLimiterConfig{
 
+    //根据ip限流
     @Bean
     public KeyResolver ipKeyResolver() {
         return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
     }
 
+    //根据api限流
 //    @Bean
 //    @Primary//如果有多个限流策略需要标识以为主
 //    KeyResolver apiKeyResolver() {
 //        return exchange -> Mono.just(exchange.getRequest().getPath().value());
 //    }
 //
+    //根据api限流
 //    @Bean
 //    public KeyResolver userKeyResolver() {
 //        return exchange -> Mono.just(exchange.getRequest().getQueryParams().getFirst("userId"));

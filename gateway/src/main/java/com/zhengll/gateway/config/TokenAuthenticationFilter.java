@@ -1,6 +1,7 @@
 package com.zhengll.gateway.config;
 
 import io.micrometer.core.instrument.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -20,6 +21,7 @@ import java.util.Map;
  * @className TokenAuthenticationFilter
  * @date 2019/11/29 16:36
  */
+@Slf4j
 @Component
 public class TokenAuthenticationFilter extends AbstractGatewayFilterFactory {
 
@@ -41,17 +43,18 @@ public class TokenAuthenticationFilter extends AbstractGatewayFilterFactory {
                 String token = header.substring(7);
                 //可把token存到redis中，此时直接在redis中判断是否有此key，有则校验通过，否则校验失败
                 if(!StringUtils.isEmpty(token)){
-                    System.out.println("验证通过");
+                    log.info("验证通过 token = {}", token);
                     //3.有token，把token设置到header中，传递给后端服务
                     mutate.header("userDetails",token).build();
                 }else{
                     //4.token无效
-                    System.out.println("token无效");
+                    log.info("token无效");
                     DataBuffer bodyDataBuffer = responseErrorInfo(response , HttpStatus.UNAUTHORIZED.toString() ,"无效的请求");
                     return response.writeWith(Mono.just(bodyDataBuffer));
                 }
             }catch (Exception e){
                 //没有token
+                log.info("没有token");
                 DataBuffer bodyDataBuffer = responseErrorInfo(response , HttpStatus.UNAUTHORIZED.toString() ,e.getMessage());
                 return response.writeWith(Mono.just(bodyDataBuffer));
             }
