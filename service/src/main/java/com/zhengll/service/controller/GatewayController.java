@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.Name;
 import java.util.Map;
 
 /**
  * @author hero良
  * @className GatewayController
- * @description
  * @date 2019/12/13 17:04
  */
 @Slf4j
@@ -26,15 +26,15 @@ public class GatewayController {
     /**
      * 熔断降级
      */
-    @GetMapping("/hello")
-    public String hello(String name){
-        log.info("      接收到请求       ");
+    @GetMapping("/fusing")
+    public String fusing(String name){
+        log.info("############### in fusing = {}", name);
         try {
             Thread.sleep(6000);
         }catch (InterruptedException e){
             log.error(e.getMessage(), e);
         }
-        return "hello! " + name;
+        return " fusing! " + name;
     }
 
     /**
@@ -42,8 +42,8 @@ public class GatewayController {
      */
     @GetMapping("/rateLimiter")
     public String rateLimiter(){
-        log.info("      接收到请求       ");
-        return "    rateLimiter!   ";
+        log.info("############### in rateLimiter ");
+        return " rateLimiter!";
     }
 
     /**
@@ -51,11 +51,11 @@ public class GatewayController {
      */
     @GetMapping("/retry")
     public String retry(@RequestParam Integer param){
-        log.info("      接收到请求       ");
+        log.info("############### in retry = {}", param);
         if(param == 1){
             throw new RuntimeException("error");
         }
-        return "    retry!   ";
+        return " retry! ";
     }
 
     /**
@@ -63,7 +63,7 @@ public class GatewayController {
      */
     @PostMapping("/getPostBody")
     public String getPostBody(@RequestParam Map<String, String> request){
-        return " hello!!!   " + request.get("name") + "   ,欢迎来到Java";
+        return " getPostBody   " + request.get("name") + ", 欢迎来到Java";
     }
 
 }

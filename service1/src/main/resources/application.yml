@@ -3,10 +3,10 @@ server:
 
 spring:
   application:
-    name: provider-server
+    name: service1-server
   #sleuth链路追踪
   zipkin:
-    base-url: http://${host-ip}:9411/
+    base-url: http://127.0.0.1:9411/
   #服务跟踪消息收集率，1代表每一条都收集，0.1代表收集百分之10，如果不配置，有个默认的百分比的
   sleuth:
     sampler:
@@ -24,7 +24,7 @@ eureka:
     registry-fetch-interval-seconds: 30
     service-url:
       #单机版 同样适合集群版，但是8761端口挂掉，则新的服务不能再注册
-      defaultZone: http://${register.name}:${register.password}@127.0.0.1:8761/eureka/
+      defaultZone: http://${register.name}:${register.password}@127.0.0.1:31000/eureka/
       #集群版
 #      defaultZone: http://eureka1:8761/eureka/,http://eureka2:8762/eureka/,http://eureka3:8763/eureka/
   instance:
@@ -54,5 +54,3 @@ logging:
 register:
   name: zhengll
   password: 123456
-
-host-ip: 127.0.0.1

@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
 public class FallbackHystrix implements FeignClientService {
 
     @Override
-    public String getFeignBalancer(String name) {
-        return null;
+    public String feignBalancer(String name) {
+        return "fail";
     }
 
     @Override
-    public String getFeignTimeout() {
-        return null;
+    public String feignTimeout() {
+        return "fail";
     }
 
     @Override
-    public String getFeignHystrix() {
-        return "出错了";
+    public String feignHystrix() {
+        return "fail";
     }
 }

@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author hero良
- * @classname FeignController
- * @description TODO
+ * @className FeignController
  */
 @RestController
 public class FeignController {
@@ -19,31 +18,30 @@ public class FeignController {
     /**
      * @description feign的负载均衡
      * @author hero良
-     * @param name
      */
-    @GetMapping("/getFeignBalancer")
-    public String getFeignBalancer(String name){
-        if(name.equals("Java")){
-            throw new RuntimeException("故意的");
+    @GetMapping("/feignBalancer")
+    public String feignBalancer(String name){
+        if("Java".equals(name)){
+            throw new RuntimeException();
         }
-        return feignClientService.getFeignBalancer(name);
+        return feignClientService.feignBalancer(name);
     }
 
     /**
      * @description feign的超时与重试
      * @author hero良
      */
-    @GetMapping("/getFeignTimeout")
-    public String getFeignTimeout(){
-        return feignClientService.getFeignTimeout();
+    @GetMapping("/feignTimeout")
+    public String feignTimeout(){
+        return feignClientService.feignTimeout();
     }
 
     /**
      * @description feign+hystrix
      * @author hero良
      */
-    @GetMapping("/getFeignHystrix")
-    public String getFeignHystrix(){
-        return feignClientService.getFeignHystrix();
+    @GetMapping("/feignHystrix")
+    public String feignHystrix(){
+        return feignClientService.feignHystrix();
     }
 }
