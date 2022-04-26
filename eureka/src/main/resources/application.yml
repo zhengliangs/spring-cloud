@@ -1,4 +1,7 @@
-#单击版配置
+# eureka 默认端口为：8761
+server:
+  port: 31000
+
 spring:
   application:
     name: eureka-server
@@ -6,10 +9,6 @@ spring:
     user:
       name: zhengll
       password: 123456
-
-# eureka 默认端口为：8761
-server:
-  port: 31000
 
 eureka:
   client:
@@ -25,7 +24,7 @@ eureka:
   server:
     # 自我保护模式（缺省为打开）
     enable-self-preservation: false
-    #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+    # eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
     # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）
     eviction-interval-timer-in-ms: 10000
 

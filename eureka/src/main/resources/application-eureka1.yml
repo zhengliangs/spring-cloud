@@ -1,9 +1,9 @@
+server:
+  port: 31001
+
 spring:
   application:
     name: eureka-server
-
-server:
-  port: 31001
 
 eureka:
   client:
